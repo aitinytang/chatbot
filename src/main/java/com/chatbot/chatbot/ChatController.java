@@ -14,9 +14,8 @@ public class ChatController {
         this.model = chatbotApplication.getModel();
     }
 
-    @GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        String response = model.generate(name);
-        return String.format("This is from Azure OpenAI's response: %s!", response);
+    @GetMapping("/chat")
+    public String chat(@RequestParam(value = "input", defaultValue = "World") String input) {
+        return model.generate(input);
     }
 }

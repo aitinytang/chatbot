@@ -30,8 +30,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Chatbot Interface</h1>
-        <input type="text" id="nameInput" placeholder="Enter your name" />
+        <h1>What Can I help with?</h1>
+        <input type="text" id="nameInput" placeholder="Message myChatbot" />
         <button onclick="sendName()">Submit</button>
         <div id="response" class="response" style="display:none;"></div>
     </div>
@@ -44,7 +44,7 @@
                 return;
             }
 
-            fetch(`/hello?name=${encodeURIComponent(name)}`)
+            fetch(`/chat?input=${encodeURIComponent(name)}`)
                 .then(response => response.text())
                 .then(data => {
                     const responseDiv = document.getElementById('response');
