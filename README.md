@@ -10,8 +10,7 @@ mvn spring-boot:run
 > netstat -ano | findstr :8080
 
 # step 4
-open your brower and type: http://localhost:8080
-then you can see result
+open your brower and type: http://localhost:8080, then you can see result
 
 # Reference
 [1. langchain4j azure open ai](https://docs.langchain4j.dev/integrations/language-models/azure-open-ai/) <br>
