@@ -3,19 +3,18 @@ package com.chatbot.chatbot;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import dev.langchain4j.model.azure.AzureOpenAiChatModel;
+import com.chatbot.chatbot.ChatbotApplication.Assistant;
 
 @RestController
 public class ChatController {
-
-    private final AzureOpenAiChatModel model;
+    private final Assistant assistant;
 
     public ChatController(ChatbotApplication chatbotApplication) {
-        this.model = chatbotApplication.getModel();
+        this.assistant = chatbotApplication.getAssistant();
     }
 
     @GetMapping("/chat")
     public String chat(@RequestParam(value = "input", defaultValue = "World") String input) {
-        return model.generate(input);
+        return assistant.chat(10010, input);
     }
 }
