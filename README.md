@@ -32,3 +32,6 @@ open your brower and type: http://localhost:8080, then you can message chatbot
 [2. langchan4j](https://github.com/langchain4j/langchain4j) <br>
 [3. springboot](https://spring.io/quickstart) <br>
 [4. azure open ai](https://learn.microsoft.com/en-us/azure/ai-services/openai/) <br>
+
+# Architectrue Overview
+![](./docs/assets/mychat-arch.png)
