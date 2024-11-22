@@ -230,6 +230,57 @@
                 width: 95%;
             }
         }
+
+        /* Add styles for the microphone button */
+        .input-area {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 20px;
+            background-color: rgba(250, 250, 250, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            transition: all 0.5s ease;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            background-color: #fff;
+        }
+
+        .input-area input:focus {
+            border-color: #ff5722;
+            outline: none;
+        }
+
+        .input-area button,
+        .input-area .mic-button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background-color: #ff5722;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-area button:hover,
+        .input-area .mic-button:hover {
+            background-color: #e64a19;
+        }
+
+        .mic-button.recording {
+            background-color: #d32f2f;
+        }
     </style>
 </head>
 <body>
@@ -251,6 +302,13 @@
         <div class="input-area">
             <input type="text" id="userInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)" aria-label="Chat input" />
             <button onclick="sendMessage()" aria-label="Send message">Send</button>
+        </div>
+
+        <!-- Input Area - Updated to include microphone button -->
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)" aria-label="Chat input" />
+            <button onclick="sendMessage()" aria-label="Send message">Send</button>
+            <button class="mic-button" id="micButton" onclick="toggleRecording()" aria-label="Record audio">🎤</button>
         </div>
     </div>
 
@@ -358,6 +416,76 @@
         function activateChat() {
             isActive = true;
             document.body.classList.add('active');
+        }
+
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        const micButton = document.getElementById('micButton');
+
+        function toggleRecording() {
+            if (isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                micButton.classList.remove('recording');
+                micButton.textContent = '🎤';
+            } else {
+                startRecording();
+                isRecording = true;
+                micButton.classList.add('recording');
+                micButton.textContent = '⏹️';
+            }
+        }
+
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.start();
+
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        audioChunks = [];
+                        sendAudio(audioBlob);
+                    };
+                })
+                .catch(error => {
+                    console.error('Error accessing microphone:', error);
+                    alert('Microphone access is required to send audio messages.');
+                });
+        }
+
+        function sendAudio(audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'message.webm');
+
+            // Display user's message
+            appendMessage('user', '🎤 Audio message');
+
+            // Show loading indicator
+            loadingIndicator.style.display = 'block';
+
+            // Send audio to the server
+            fetch('/api/audio', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide loading indicator
+                loadingIndicator.style.display = 'none';
+                appendMessage('bot', data.reply);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                loadingIndicator.style.display = 'none';
+                appendMessage('bot', '😕 Sorry, something went wrong with your audio message.');
+            });
         }
     </script>
 </body>
