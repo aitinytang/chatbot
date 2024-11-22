@@ -299,10 +299,11 @@
         <div id="loading">Bot is typing<span id="dots">...</span></div>
         
         <!-- Input Area - Initially Centered -->
+        <!--
         <div class="input-area">
             <input type="text" id="userInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)" aria-label="Chat input" />
             <button onclick="sendMessage()" aria-label="Send message">Send</button>
-        </div>
+        </div> -->
 
         <!-- Input Area - Updated to include microphone button -->
         <div class="input-area">
@@ -475,11 +476,21 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    // Handle HTTP errors
+                    return response.json().then(err => { throw new Error(err.message || 'Server Error'); });
+                }
+                return response.json();
+            })
             .then(data => {
                 // Hide loading indicator
                 loadingIndicator.style.display = 'none';
-                appendMessage('bot', data.reply);
+                if (data.fileUrl) {
+                    appendMessage('bot', data.message + ` <a href="${data.fileUrl}" target="_blank">Listen</a>`);
+                } else {
+                    appendMessage('bot', data.message);
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
