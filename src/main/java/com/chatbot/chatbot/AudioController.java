@@ -20,7 +20,7 @@ public class AudioController {
     @Value("${app.upload.dir}")
     private String uploadDir;
 
-    @PostMapping("/audio")
+    @PostMapping(value = "/audio", consumes = "multipart/form-data", produces = "application/json")
     public ResponseEntity<?> handleAudioUpload(@RequestParam("audio") MultipartFile audioFile) {
         // Validate file
         if (audioFile.isEmpty()) {
@@ -58,7 +58,7 @@ public class AudioController {
             Files.write(filePath, audioFile.getBytes());
 
             // Log the saved file path
-            System.out.println("Audio file saved at: " + filePath.toString());
+            //System.out.println("Audio file saved at: " + filePath.toString());
 
             // Respond with the file URL
             String fileUrl = "/uploads/" + sanitizedFilename;
