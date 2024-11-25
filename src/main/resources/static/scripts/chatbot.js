@@ -105,8 +105,8 @@
         }
 
         // Azure Speech Service Configuration
-        const subscriptionKey = '9F0btoyLQCuLMK91tOLVs8LYDQBvavuyAxtgjIQyTTA0vdDvPvwOJQQJ99AKACYeBjFXJ3w3AAAYACOGFcjb';
-        const serviceRegion = 'eastus'; // e.g., 'westus'
+        const subscriptionKey = 'xxx';
+        const serviceRegion = 'xxx'; // e.g., 'westus'
 
         // Initialize Azure Speech SDK
         const speechConfig = window.SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
