@@ -317,6 +317,8 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script> -->
 
+    <script src="https://cdn.jsdelivr.net/npm/microsoft-cognitiveservices-speech-sdk@1.21.0/distrib/browser/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+
     <script>
         const chatHeader = document.getElementById('chatHeader');
         const chatHistory = document.getElementById('chatHistory');
@@ -325,8 +327,12 @@
         const userInput = document.getElementById('userInput');
         const inputArea = document.querySelector('.input-area');
 
+        const micButton = document.getElementById('micButton');
+
         let messages = [];
         let isActive = false; // Track if chat has been activated
+
+        let recognizer;
 
         // Function to append messages
         function appendMessage(sender, message) {
@@ -419,85 +425,95 @@
             document.body.classList.add('active');
         }
 
-        let mediaRecorder;
-        let audioChunks = [];
-        let isRecording = false;
+        // Azure Speech Service Configuration
+        const subscriptionKey = '9F0btoyLQCuLMK91tOLVs8LYDQBvavuyAxtgjIQyTTA0vdDvPvwOJQQJ99AKACYeBjFXJ3w3AAAYACOGFcjb';
+        const serviceRegion = 'eastus'; // e.g., 'westus'
 
-        const micButton = document.getElementById('micButton');
+        // Initialize Azure Speech SDK
+        const speechConfig = window.SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
+        speechConfig.speechRecognitionLanguage = 'en-US';
 
-        function toggleRecording() {
-            if (isRecording) {
-                mediaRecorder.stop();
-                isRecording = false;
-                micButton.classList.remove('recording');
-                micButton.textContent = '🎤';
-            } else {
-                startRecording();
-                isRecording = true;
-                micButton.classList.add('recording');
-                micButton.textContent = '⏹️';
+        
+
+        // Initialize Speech Recognizer
+        function initializeRecognizer() {
+            recognizer = new window.SpeechSDK.SpeechRecognizer(speechConfig);
+
+            recognizer.recognizing = (s, e) => {
+                console.log(`RECOGNIZING: Text=${e.result.text}`);
+            };
+
+            recognizer.recognized = (s, e) => {
+                if (e.result.reason === window.SpeechSDK.ResultReason.RecognizedSpeech) {
+                    appendMessage('user', e.result.text);
+                    // Optionally, send the recognized text to your server or handle it directly
+                    // For example, sending to your existing sendMessage function:
+                    handleTranscribedText(e.result.text);
+                } else {
+                    console.log('Speech not recognized.');
+                }
+            };
+
+            recognizer.canceled = (s, e) => {
+                console.log(`CANCELED: Reason=${e.reason}`);
+                recognizer.close();
+                recognizer = undefined;
+                loadingIndicator.style.display = 'none';
+            };
+
+            recognizer.sessionStopped = (s, e) => {
+                console.log('Session stopped.');
+                recognizer.stopContinuousRecognitionAsync();
+            };
+        }
+
+        // Function to handle transcribed text
+        function handleTranscribedText(text) {
+            // Display user's message
+            userInput.value = text;
+            sendMessage();
+        }
+
+        // Function to toggle recording using Azure Speech SDK
+        window.toggleRecording = function() { // **Attached to window object**
+            if (recognizer) {
+                if (recognizer.isRecognizing) {
+                    recognizer.stopContinuousRecognitionAsync(() => {
+                        console.log('Recognition stopped.');
+                        micButton.classList.remove('recording');
+                        micButton.textContent = '🎤';
+                    }, (err) => {
+                        console.error('Error stopping recognition:', err);
+                    });
+                } else {
+                    startRecognition();
+                }
             }
         }
+        
 
-        function startRecording() {
-            navigator.mediaDevices.getUserMedia({ audio: true })
-                .then(stream => {
-                    mediaRecorder = new MediaRecorder(stream);
-                    mediaRecorder.start();
+        // Function to start recognition
+        function startRecognition() {
+            if (!recognizer) {
+                initializeRecognizer();
+            }
 
-                    mediaRecorder.ondataavailable = event => {
-                        audioChunks.push(event.data);
-                    };
-
-                    mediaRecorder.onstop = () => {
-                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                        audioChunks = [];
-                        sendAudio(audioBlob);
-                    };
-                })
-                .catch(error => {
-                    console.error('Error accessing microphone:', error);
-                    alert('Microphone access is required to send audio messages.');
-                });
+            recognizer.startContinuousRecognitionAsync(
+                () => {
+                    console.log('Recognition started.');
+                    micButton.classList.add('recording');
+                    micButton.textContent = '⏹️';
+                },
+                (err) => {
+                    console.error('Error starting recognition:', err);
+                }
+            );
         }
 
-        function sendAudio(audioBlob) {
-            const formData = new FormData();
-            formData.append('audio', audioBlob, 'message.webm');
-
-            // Display user's message
-            appendMessage('user', '🎤 Audio message');
-
-            // Show loading indicator
-            loadingIndicator.style.display = 'block';
-
-            // Send audio to the server
-            fetch('/api/audio', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    // Handle HTTP errors
-                    return response.json().then(err => { throw new Error(err.message || 'Server Error'); });
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Hide loading indicator
-                loadingIndicator.style.display = 'none';
-                if (data.fileUrl) {
-                    appendMessage('bot', data.message + ` <a href="${data.fileUrl}" target="_blank">Listen</a>`);
-                } else {
-                    appendMessage('bot', data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                loadingIndicator.style.display = 'none';
-                appendMessage('bot', '😕 Sorry, something went wrong with your audio message.');
-            });
-        }
+        // Initialize recognizer on page load
+        window.onload = () => {
+            initializeRecognizer();
+        };
     </script>
 </body>
 </html>
