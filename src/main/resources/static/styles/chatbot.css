@@ -13,6 +13,7 @@
             width: 100vw;
             position: relative;
             overflow: hidden; /* Prevent scrollbar */
+            display: flex;
         }
 
         .sidebar {
@@ -77,6 +78,8 @@
             width: 90%;
             max-width: 600px; /* Initial max-width for centered layout */
             transition: all 0.5s ease;
+            flex: 1;
+            margin-left: 250px;
         }
 
         /* Active State for Chat Container */

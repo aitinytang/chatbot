@@ -2,12 +2,20 @@ package com.chatbot.chatbot;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.chatbot.chatbot.ChatbotApplication.Assistant;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/api")
 public class ConversationController {
+    private final Assistant assistant;
+
+    public ConversationController(ChatbotApplication chatbotApplication) {
+        this.assistant = chatbotApplication.getAssistant();
+    }
 
     // In-memory storage for conversations. Replace with a database or persistent storage in production.
     private Map<String, List<Message>> conversations = new ConcurrentHashMap<>();
@@ -15,7 +23,9 @@ public class ConversationController {
     // Endpoint to create a new conversation
     @PostMapping("/createConversation")
     public ResponseEntity<CreateConversationResponse> createConversation() {
-        String memoryId = UUID.randomUUID().toString();
+        Random random = new Random();
+        int memId = random.nextInt();
+        String memoryId = Integer.toString(memId);
         conversations.put(memoryId, new ArrayList<>());
         return ResponseEntity.ok(new CreateConversationResponse(memoryId));
     }
@@ -34,7 +44,7 @@ public class ConversationController {
         conversations.get(memoryId).add(userMessage);
 
         // Generate bot response (implement your actual logic here)
-        String botResponse = processInput(input, conversations.get(memoryId));
+        String botResponse = processInput(input, memoryId);
 
         // Add bot response to conversation history
         Message botMessage = new Message("bot", botResponse);
@@ -44,9 +54,10 @@ public class ConversationController {
     }
 
     // Sample method to process input and generate a response
-    private String processInput(String input, List<Message> history) {
+    private String processInput(String input, String memoryId) {
         // Implement your chatbot logic here. For demonstration, echoing the input.
-        return "You said: " + input;
+        int memid = Integer.parseInt(memoryId);
+        return assistant.chat(memid, input);
     }
 
     // Inner class to represent a message
