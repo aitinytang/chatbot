@@ -1,9 +1,6 @@
-// Make sure this file is loaded after chatbot.js
-(function() {
-    // Reference functions from chatbot.js that we need
-    const { appendMessage, loadingIndicator } = window.chatbot || {};
+class ImageGen {
 
-    async function generateImage() {
+    async generateImage() {
         const prompt = document.getElementById('userInput').value;
         if (!prompt.trim()) {
             alert('Please enter a description for the image you want to generate');
@@ -44,7 +41,7 @@
         }
     }
 
-    function addImageToChat(sender, imageUrl) {
+    addImageToChat(sender, imageUrl) {
         const chatHistory = document.getElementById('chatHistory');
         const messageDiv = document.createElement('div');
         messageDiv.className = `chat-message ${sender}-message`;
@@ -58,10 +55,6 @@
         chatHistory.appendChild(messageDiv);
         chatHistory.scrollTop = chatHistory.scrollHeight;
     }
+}
 
-    // Expose functions to global scope
-    window.imageGenerate = {
-        generateImage,
-        addImageToChat
-    };
-})();
+export default ImageGen;

@@ -6,42 +6,41 @@
     <link rel="stylesheet" href="styles/chatbot.css">
 </head>
 <body>
-    <div class="sidebar">
-        <button id="newConversationBtn">New Conversation</button>
-        <h3>Conversation History</h3>
-        <ul id="conversationList"></ul>
-    </div>
-    
     <div class="chat-container">
-        <!-- Chat Header -->
-        <div id="chatHeader" class="chat-header">
-            <h1>What Can I help with?</h1>
+        <div class="sidebar">
+            <button id="newConversationBtn" class="new-chat-btn">New Chat</button>
+            <h3>Conversation History</h3>
+            <ul id="conversationList" class="conversation-list"></ul>
         </div>
-        
-        <!-- Chat History Panel - Initially Hidden -->
-        <div id="chatHistory" class="chat-history" role="log" aria-live="polite">
-            <!-- Messages will appear here -->
-        </div>
-        
-        <!-- Loading Indicator -->
-        <div id="loading">Bot is typing<span id="dots">...</span></div>
 
-        <!-- Input Area - Updated to include microphone button -->
-        <div class="input-area initial-position">
-            <input type="text" id="userInput" placeholder="Type your message here..." onkeypress="chatbot.handleKeyPress(event)" aria-label="Chat input" />
-            <button onclick="chatbot.sendMessage()" aria-label="Send message">Send</button>
-            <button class="mic-button" id="micButton" onclick="audio.toggleRecording()" aria-label="Record audio">🎤</button>
-            <button class="image-button" id="imageButton" onclick="imageGenerate.generateImage()" aria-label="Generate image">🖼️</button>
+        <div class="main-container">
+            <!-- Chat Header -->
+            <div id="chatHeader" class="chat-header">
+                <h1>What Can I help with?</h1>
+            </div>
+
+            <!-- Chat History Panel - Initially Hidden -->
+            <div id="chatHistory" class="chat-history" role="log" aria-live="polite">
+                <!-- Messages will appear here -->
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="loading-indicator" style="display: none;">Bot is typing<span id="dots">...</span></div>
+
+            <!-- Input Area - Updated to include microphone button -->
+            <div class="input-area initial-position">
+                <input type="text" id="userInput" placeholder="Type your message here..."   aria-label="Chat input" />
+                <button id="sendButton" aria-label="Send message">Send</button>
+                <button class="mic-button" id="micButton" aria-label="Record audio">🎤</button>
+                <button class="image-button" id="imageButton" aria-label="Generate image">🖼️</button>
+            </div>
         </div>
-    </div>
 
     <!-- Optional Scripts for WebSockets -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script> -->
 
-    <script src="scripts/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
-    <script src="scripts/chatbot.js"></script>
-    <script src="scripts/image_gen.js"></script>
-    <script src="scripts/audio.js"></script>
+    <script type="module" src="/scripts/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+    <script type="module" src="/scripts/bootstrap.js"></script>
 </body>
 </html>
