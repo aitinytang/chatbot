@@ -6,14 +6,14 @@
     <link rel="stylesheet" href="styles/chatbot.css">
 </head>
 <body>
-    <div class="chat-container">
+    <div class="main-container">
         <div class="sidebar">
-            <button id="newConversationBtn" class="new-chat-btn">New Chat</button>
+            <button id="newConversationBtn">New Chat</button>
             <h3>Conversation History</h3>
-            <ul id="conversationList" class="conversation-list"></ul>
+            <ul id="conversationList"></ul>
         </div>
 
-        <div class="main-container">
+        <div class="chat-container">
             <!-- Chat Header -->
             <div id="chatHeader" class="chat-header">
                 <h1>What Can I help with?</h1>
@@ -25,7 +25,7 @@
             </div>
 
             <!-- Loading Indicator -->
-            <div id="loading" class="loading-indicator" style="display: none;">Bot is typing<span id="dots">...</span></div>
+            <div id="loading">Bot is typing<span id="dots">...</span></div>
 
             <!-- Input Area - Updated to include microphone button -->
             <div class="input-area initial-position">
