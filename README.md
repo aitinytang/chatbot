@@ -20,9 +20,10 @@ git clone git@github.com:aitinytang/chatbot.git
 cd chatbot
 
 ## step 3
-mvn spring-boot:run
-> tips: if 8080 has corrupied by other app:
-> netstat -ano | findstr :8080
+```bash
+mvn clean spring-boot:run
+```
+> tips: if 8080 has corrupied by other app: window: netstat -ano | findstr :8080; linux: netstat -tnlp | grep 8080, then kill the pid
 
 ## step 4
 open your brower and type: http://localhost:8080, then you can message chatbot
