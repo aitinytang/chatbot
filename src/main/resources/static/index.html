@@ -28,9 +28,10 @@
 
         <!-- Input Area - Updated to include microphone button -->
         <div class="input-area initial-position">
-            <input type="text" id="userInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)" aria-label="Chat input" />
-            <button onclick="sendMessage()" aria-label="Send message">Send</button>
-            <button class="mic-button" id="micButton" onclick="toggleRecording()" aria-label="Record audio">🎤</button>
+            <input type="text" id="userInput" placeholder="Type your message here..." onkeypress="chatbot.handleKeyPress(event)" aria-label="Chat input" />
+            <button onclick="chatbot.sendMessage()" aria-label="Send message">Send</button>
+            <button class="mic-button" id="micButton" onclick="audio.toggleRecording()" aria-label="Record audio">🎤</button>
+            <button class="image-button" id="imageButton" onclick="imageGenerate.generateImage()" aria-label="Generate image">🖼️</button>
         </div>
     </div>
 
@@ -40,5 +41,7 @@
 
     <script src="scripts/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
     <script src="scripts/chatbot.js"></script>
+    <script src="scripts/image_gen.js"></script>
+    <script src="scripts/audio.js"></script>
 </body>
 </html>
