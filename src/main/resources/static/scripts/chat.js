@@ -37,7 +37,7 @@ class ChatManager {
 
     // Function to activate chat (change layout after first input)
     activateChat() {
-        isActive = true;
+        this.isActive = true;
         document.body.classList.add('active');
     }
     
@@ -92,7 +92,7 @@ class ChatManager {
         }
 
         // Activate chat if this is the first message
-        if (!isActive && this.messages.length === 1) {
+        if (!this.isActive && this.messages.length === 1) {
             this.activateChat();
         }
 
@@ -107,24 +107,24 @@ class ChatManager {
 
         // Display user's message
         this.appendMessage('user', message);
-        userInput.value = '';
-        userInput.focus();
+        this.userInput.value = '';
+        this.userInput.focus();
 
         // Show loading indicator
-        loadingIndicator.style.display = 'block';
+        this.loadingIndicator.style.display = 'block';
 
         // Start animating the dots
         let dotInterval = setInterval(() => {
-            let currentDots = dotsElement.textContent.length;
+            let currentDots = this.dotsElement.textContent.length;
             if (currentDots < 3) {
-                dotsElement.textContent += '.';
+                this.dotsElement.textContent += '.';
             } else {
-                dotsElement.textContent = '';
+                this.dotsElement.textContent = '';
             }
         }, 500);
 
         // Send message to the server with memoryId
-        fetch(`/api/chatlocal?input=${encodeURIComponent(message)}&memoryId=${currentMemoryId}`)
+        fetch(`/api/chatlocal?input=${encodeURIComponent(message)}&memoryId=${this.currentMemoryId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -133,16 +133,16 @@ class ChatManager {
             })
             .then(data => {
                 // Hide loading indicator
-                loadingIndicator.style.display = 'none';
+                this.loadingIndicator.style.display = 'none';
                 clearInterval(dotInterval);
-                dotsElement.textContent = '...';
+                this.dotsElement.textContent = '...';
                 this.appendMessage('bot', data);
             })
             .catch(error => {
                 console.error('Error:', error);
-                loadingIndicator.style.display = 'none';
+                this.loadingIndicator.style.display = 'none';
                 clearInterval(dotInterval);
-                dotsElement.textContent = '...';
+                this.dotsElement.textContent = '...';
                 this.appendMessage('bot', '😕 Sorry, something went wrong.');
             });
     }
