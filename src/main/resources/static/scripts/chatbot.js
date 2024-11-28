@@ -298,22 +298,37 @@ function initializeSidebar() {
     renderConversationList();
 }
 
-// Initialize on window load
-window.onload = () => {
-    loadConversationHistory();
+// ... existing code ...
+
+// Modified initialization approach
+document.addEventListener('DOMContentLoaded', () => {
+    // Essential initialization for basic chat functionality
+    //loadConversationHistory();
     initializeSidebar();
-    initializeRecognizer();
+    
+    // Defer conversation loading
+    setTimeout(() => {
+        const savedConversations = Object.keys(conversationHistory);
+        if (savedConversations.length > 0) {
+            console.log('savedConversations.length > 0');
+            currentMemoryId = savedConversations[0];
+            messages = conversationHistory[currentMemoryId];
+            renderMessages();
+        } else {
+            console.log('init createNewConversation');
+            createNewConversation();
+        }
+    }, 10);
 
-    // If there are existing conversations, load the first one
-    const savedConversations = Object.keys(conversationHistory);
-    if (savedConversations.length > 0) {
-        currentMemoryId = savedConversations[0];
-        messages = conversationHistory[currentMemoryId];
-        renderMessages();
+    // Initialize speech recognition after initial render
+    const initSpeechAfterRender = () => {
+        initializeRecognizer();
+    };
+
+    // Use requestIdleCallback if available, otherwise setTimeout
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(initSpeechAfterRender);
     } else {
-        // If no conversations exist, create one
-        createNewConversation();
+        setTimeout(initSpeechAfterRender, 100);
     }
-};
-
-// Existing microphone and recognizer functionalities remain unchanged
+});

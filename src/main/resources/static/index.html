@@ -15,7 +15,7 @@
     <div class="chat-container">
         <!-- Chat Header -->
         <div id="chatHeader" class="chat-header">
-            What Can I help with?
+            <h1>What Can I help with?</h1>
         </div>
         
         <!-- Chat History Panel - Initially Hidden -->
@@ -25,16 +25,9 @@
         
         <!-- Loading Indicator -->
         <div id="loading">Bot is typing<span id="dots">...</span></div>
-        
-        <!-- Input Area - Initially Centered -->
-        <!--
-        <div class="input-area">
-            <input type="text" id="userInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)" aria-label="Chat input" />
-            <button onclick="sendMessage()" aria-label="Send message">Send</button>
-        </div> -->
 
         <!-- Input Area - Updated to include microphone button -->
-        <div class="input-area">
+        <div class="input-area initial-position">
             <input type="text" id="userInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)" aria-label="Chat input" />
             <button onclick="sendMessage()" aria-label="Send message">Send</button>
             <button class="mic-button" id="micButton" onclick="toggleRecording()" aria-label="Record audio">🎤</button>
