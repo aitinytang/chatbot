@@ -1,11 +1,12 @@
 import { AZURE_CONFIG } from './config.js';
-import * as SpeechSDK from './microsoft.cognitiveservices.speech.sdk.bundle.js';
 
 class SpeechManager {
     constructor(chatManager) {
         this.recognizer = null;
         this.chatManager = chatManager;
         this.micButton = document.getElementById('micButton');
+        this.loadingIndicator = document.getElementById('loading');
+        this.userInput = document.getElementById('userInput');
         this.setupEventListeners();
     }
 
@@ -15,20 +16,18 @@ class SpeechManager {
     
     // Function to toggle recording using Azure Speech SDK
     toggleRecording() {
-        const recognizer = window.chatbot.getRecognizer(); // Get current recognizer instance
-
-        if (recognizer) {
-            console.log('Recognizer is defined:', recognizer);
-            if (recognizer.isRecognizing) {
-                recognizer.stopContinuousRecognitionAsync(() => {
+        if (this.recognizer) {
+            console.log('Recognizer is defined:', this.recognizer);
+            if (this.recognizer.isRecognizing) {
+                this.recognizer.stopContinuousRecognitionAsync(() => {
                     console.log('Recognition stopped.');
-                    micButton.classList.remove('recording');
-                    micButton.textContent = '🎤';
+                    this.micButton.classList.remove('recording');
+                    this.micButton.textContent = '🎤';
                 }, (err) => {
                     console.error('Error stopping recognition:', err);
                 });
             } else {
-                startRecognition();
+                this.startRecognition();
             }
         } else {
             console.warn('Recognizer is undefined.');
@@ -37,16 +36,14 @@ class SpeechManager {
 
     // Function to start recognition
     startRecognition() {
-        const recognizer = window.chatbot.getRecognizer();
-        if (!recognizer) {
-            initializeRecognizer();
-            recognizer = window.chatbot.getRecognizer();
+        if (!this.recognizer) {
+            this.initializeRecognizer();
         }
-        recognizer.startContinuousRecognitionAsync(
+        this.recognizer.startContinuousRecognitionAsync(
             () => {
                 console.log('Recognition started.');
-                micButton.classList.add('recording');
-                micButton.textContent = '⏹️';
+                this.micButton.classList.add('recording');
+                this.micButton.textContent = '⏹️';
             },
             (err) => {
                 console.error('Error starting recognition:', err);
@@ -56,48 +53,48 @@ class SpeechManager {
 
     // Initialize Speech Recognizer
     initializeRecognizer() {
-        const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(
-            AZURE_CONFIG.subscriptionKey,
-            AZURE_CONFIG.serviceRegion);
+        const speechConfig = window.SpeechSDK.SpeechConfig.fromSubscription(
+            AZURE_CONFIG.speechKey,
+            AZURE_CONFIG.region);
 
         speechConfig.speechRecognitionLanguage = 'en-US';
         try {
-            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig);
+            this.recognizer = new window.SpeechSDK.SpeechRecognizer(speechConfig);
             console.log('Speech recognizer initialized successfully');
         } catch (error) {
             console.error('Error creating recognizer:', error);
         }
 
-        recognizer.recognizing = (s, e) => {
+        this.recognizer.recognizing = (s, e) => {
             console.log(`RECOGNIZING: Text=${e.result.text}`);
         };
-        recognizer.recognized = (s, e) => {
-            if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech) {
-                appendMessage('user', e.result.text);
+        this.recognizer.recognized = (s, e) => {
+            if (e.result.reason === window.SpeechSDK.ResultReason.RecognizedSpeech) {
+                this.chatManager.appendMessage('user', e.result.text);
                 // Optionally, send the recognized text to your server or handle it directly
                 // For example, sending to your existing sendMessage function:
-                handleTranscribedText(e.result.text);
+                this.handleTranscribedText(e.result.text);
             } else {
                 console.log('Speech not recognized.');
             }
         };
-        recognizer.canceled = (s, e) => {
+        this.recognizer.canceled = (s, e) => {
             console.log(`CANCELED: Reason=${e.reason}`);
-            recognizer.close();
-            recognizer = undefined;
-            loadingIndicator.style.display = 'none';
+            this.recognizer.close();
+            this.recognizer = undefined;
+            this.loadingIndicator.style.display = 'none';
         };
-        recognizer.sessionStopped = (s, e) => {
+        this.recognizer.sessionStopped = (s, e) => {
             console.log('Session stopped.');
-            recognizer.stopContinuousRecognitionAsync();
+            this.recognizer.stopContinuousRecognitionAsync();
         };
     }
 
     // Function to handle transcribed text
     handleTranscribedText(text) {
         // Display user's message
-        userInput.value = text;
-        sendMessage();
+        this.userInput.value = text;
+        this.chatManager.sendMessage();
     }
 }
 

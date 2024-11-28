@@ -1,15 +1,26 @@
 class ImageGen {
+    constructor(chatManager) {
+        this.chatManager = chatManager;
+        this.imgButton = document.getElementById('imageButton');
+        this.userInput = document.getElementById('userInput');
+        this.loadingIndicator = document.getElementById('loading');
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        this.imgButton.addEventListener('click', () => this.generateImage());
+    }
 
     async generateImage() {
-        const prompt = document.getElementById('userInput').value;
+        console.log('Generating image...');
+        const prompt = this.userInput.value;
         if (!prompt.trim()) {
             alert('Please enter a description for the image you want to generate');
             return;
         }
 
         // Show loading state
-        const loading = document.getElementById('loading');
-        loading.style.display = 'block';
+        this.loadingIndicator.style.display = 'block';
 
         try {
             const response = await fetch('/api/generate-image', {
@@ -27,17 +38,17 @@ class ImageGen {
             const data = await response.json();
 
             // Add the prompt and image to chat history
-            appendMessage('user', prompt);
-            addImageToChat('bot', data.imageUrl);
+            this.chatManager.appendMessage('user', prompt);
+            this.addImageToChat('bot', data.imageUrl);
 
             // Clear input
-            document.getElementById('userInput').value = '';
+            this.userInput = '';
 
         } catch (error) {
             console.error('Error generating image:', error);
-            appendMessage('bot', 'Sorry, I couldn\'t generate the image. Please try again.');
+            this.chatManager.appendMessage('bot', 'Sorry, I couldn\'t generate the image. Please try again.');
         } finally {
-            loading.style.display = 'none';
+            this.loadingIndicator.style.display = 'none';
         }
     }
 

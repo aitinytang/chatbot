@@ -1,10 +1,12 @@
 import ChatManager from './chat.js';
 import SpeechManager from './speech.js';
+import ImageGen from './image_gen.js';
 
 class App {
     constructor() {
         this.chatManager = new ChatManager();
         this.speechManager = new SpeechManager(this.chatManager);
+        this.ImageGen = new ImageGen(this.chatManager);
     }
 
     initialize() {
