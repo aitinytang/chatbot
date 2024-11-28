@@ -360,3 +360,22 @@ body.active .chat-header {
         .mic-button.recording {
             background-color: #d32f2f;
         }
+
+        .image-button {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: transform 0.2s;
+        }
+        
+        .image-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .chat-message img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
