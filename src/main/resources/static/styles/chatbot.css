@@ -95,25 +95,56 @@ body.active .chat-container {
     align-items: center;
 }
 
-        /* Chat Header Styling */
-        .chat-header {
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent orange */
-            color: #120101;
-            padding: 15px 20px;
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            border-radius: 10px 10px 0 0; /* Rounded top corners */
-            width: 100%;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
+.chat-header {
+    position: fixed;
+    top: 45%;
+    left: calc(250px + 45%);
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #120101;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 10px;
+    white-space: nowrap;
+    z-index: 1;
+}
 
-        /* Hidden State for Chat Header */
-        body.active .chat-header {
-            display: none; /* Hide header after activation */
-        }
+/* Hidden State for Chat Header */
+body.active .chat-header {
+    display: none; /* Hide header after activation */
+}
+
+.typing-container {
+    display: inline-block;
+    position: relative;
+}
+
+.typing-animation {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border-right: 2px solid black;
+    white-space: nowrap;
+    margin: 0;
+    letter-spacing: 0.15em;
+    animation: typing 3.5s steps(30, end),
+               blink-caret 0.75s step-end infinite;
+    width: 0;
+    animation-fill-mode: forwards;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+}
+
 
         /* Chat History Styling */
         .chat-history {
@@ -185,18 +216,21 @@ body.active .chat-container {
             text-align: right;
         }
 
-        /* Input Area Styling - Initial State */
         .input-area {
+            position: fixed;
+            bottom: 50%; /* Change from 20px to 50% */
+            left: calc(250px + 45%); /* Keep sidebar adjustment */
+            transform: translate(-50%, 50%); /* Add Y-axis transform */
+            width: 90%;
+            max-width: 800px;
             display: flex;
-            width: 100%;
-            max-width: 400px;
+            align-items: center;
             padding: 10px 20px;
-            background-color: rgba(250, 250, 250, 0.9); /* Semi-transparent background */
+            background-color: rgba(250, 250, 250, 0.9);
             border-radius: 20px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            box-sizing: border-box;
-            transition: all 0.5s ease;
         }
+        
 
         .input-area input {
             flex: 1;
