@@ -238,7 +238,13 @@
 
     // Initialize Speech Recognizer
     function initializeRecognizer() {
-        recognizer = new window.SpeechSDK.SpeechRecognizer(speechConfig);
+        try {
+            recognizer = new window.SpeechSDK.SpeechRecognizer(speechConfig);
+            console.log('Speech recognizer initialized successfully');
+        } catch (error) {
+            console.error('Error creating recognizer:', error);
+        }
+
         recognizer.recognizing = (s, e) => {
             console.log(`RECOGNIZING: Text=${e.result.text}`);
         };
@@ -309,7 +315,9 @@
         appendMessage,
         loadingIndicator,
         userInput,
-        initializeRecognizer,
-        handleKeyPress
+        handleKeyPress,
+        sendMessage,
+        getRecognizer: () => recognizer,
+        initializeRecognizer
     };
 })();
