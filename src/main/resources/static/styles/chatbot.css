@@ -17,7 +17,7 @@ body {
 }
 
 /* Chat container layout */
-.chat-container {
+.main-container {
     display: flex;
     height: 100vh;
     background-color: white;
@@ -70,7 +70,7 @@ body {
 }
         
 /* Chat Container Styling */
-.main-container {
+.chat-container {
     /* Remove absolute positioning */
     position: relative;
     top: 0;
@@ -385,43 +385,3 @@ body.active .chat-header {
             border-radius: 8px;
             margin: 10px 0;
         }
-
-.new-chat-btn {
-    padding: 10px 15px;
-    background-color: #10a37f;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
-
-.new-chat-btn:hover {
-    background-color: #0e906f;
-}
-
-.conversation-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    overflow-y: auto;
-}
-
-.conversation-list li {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 5px;
-}
-
-.conversation-list li:hover {
-    background-color: #e5e5e5;
-}
-
-/* Loading indicator */
-.loading-indicator {
-    padding: 10px;
-    text-align: center;
-    color: #666;
-}

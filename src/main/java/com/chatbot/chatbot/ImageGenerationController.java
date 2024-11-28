@@ -1,3 +1,5 @@
+package com.chatbot.chatbot;
+
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,10 +25,11 @@ public class ImageGenerationController {
     @PostMapping("/generate-image")
     public ResponseEntity<Map<String, String>> generateImage(@RequestBody Map<String, String> request) {
         String prompt = request.get("prompt");
-        
-        AzureOpenAiImageModel model = AzureOpenAiImageModel.builder()
-                    .apiKey(System.getenv("AZURE_OPENAI_KEY"))
-                    .endpoint(System.getenv("AZURE_OPENAI_ENDPOINT"))
+        System.out.println(prompt);
+        try {
+            AzureOpenAiImageModel model = AzureOpenAiImageModel.builder()
+                    .apiKey(System.getenv("AZURE_OPENAI_DALLE_KEY"))
+                    .endpoint(System.getenv("AZURE_OPENAI_DALLE_ENDPOINT"))
                     .deploymentName(System.getenv("AZURE_OPENAI_DALLE_DEPLOYMENT_NAME"))
                     .logRequestsAndResponses(true)
                     .build();
@@ -43,5 +46,11 @@ public class ImageGenerationController {
             result.put("imageUrl", image.url().toString());
             
             return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 }
