@@ -13,36 +13,27 @@
         </div>
 
         <div class="chat-container">
-            <!-- Chat Header -->
             <div id="chatHeader" class="chat-header">
                 <h1>What Can I help with?</h1>
             </div>
 
-            <!-- Chat History Panel - Initially Hidden -->
             <div id="chatHistory" class="chat-history" role="log" aria-live="polite">
                 <!-- Messages will appear here -->
             </div>
 
-            <!-- Loading Indicator -->
             <div id="loading">generating<span id="dots" class="large-dots">...</span></div>
 
-            <!-- Input Area - Updated to include microphone button -->
             <div class="input-area initial-position">
                 <input type="text" id="userInput" placeholder="Type your message here..."   aria-label="Chat input" />
                 <button id="sendButton" aria-label="Send message">Send</button>
                 <button class="mic-button" id="micButton" aria-label="Record audio">🎤</button>
                 <button class="image-button" id="imageButton" aria-label="Generate image">🖼️</button>
+                <button id="realtimeMicButton" class="mic-button" title="Real-time Speech Recognition">🎙️</button>
             </div>
         </div>
 
-    <!-- Optional Scripts for WebSockets -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script> -->
-
     <script src="/scripts/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
-    <!-- Add this before your other scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-    <!-- Add this before your other scripts -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="module" src="/scripts/bootstrap.js"></script>
 </body>
