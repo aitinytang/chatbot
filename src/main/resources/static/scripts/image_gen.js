@@ -2,6 +2,7 @@ class ImageGen {
     constructor(chatManager) {
         this.chatManager = chatManager;
         this.imgButton = document.getElementById('imageButton');
+        this.dotsElement = document.getElementById('dots');
         this.userInput = document.getElementById('userInput');
         this.loadingIndicator = document.getElementById('loading');
         this.setupEventListeners();
@@ -19,8 +20,22 @@ class ImageGen {
             return;
         }
 
+        this.chatManager.appendMessage('user', prompt);
+        this.userInput.value = '';
+        this.userInput.focus();
+
         // Show loading state
         this.loadingIndicator.style.display = 'block';
+        
+        // Start animating the dots
+        let dotInterval = setInterval(() => {
+            let currentDots = this.dotsElement.textContent.length;
+            if (currentDots < 3) {
+                this.dotsElement.textContent += '.';
+            } else {
+                this.dotsElement.textContent = '';
+            }
+        }, 500);
 
         try {
             const response = await fetch('/api/generate-image', {
@@ -36,19 +51,16 @@ class ImageGen {
             }
 
             const data = await response.json();
-
             // Add the prompt and image to chat history
-            this.chatManager.appendMessage('user', prompt);
             this.addImageToChat('bot', data.imageUrl);
-
-            // Clear input
-            this.userInput = '';
-
         } catch (error) {
             console.error('Error generating image:', error);
             this.chatManager.appendMessage('bot', 'Sorry, I couldn\'t generate the image. Please try again.');
         } finally {
+            // Hide loading indicator
             this.loadingIndicator.style.display = 'none';
+            clearInterval(dotInterval);
+            this.dotsElement.textContent = '...';            
         }
     }
 
