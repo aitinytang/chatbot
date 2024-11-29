@@ -1,0 +1,17 @@
+.input-area .image-button {
+    font-size: 2em;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: transform 0.2s;
+}
+
+.input-area .image-button:hover {
+    background-color: rgba(202, 194, 194, 0.281);
+    transform: scale(1.1);
+}
+
+.chat-message img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 10px 0;
+}

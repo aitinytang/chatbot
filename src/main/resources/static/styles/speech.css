@@ -1,0 +1,51 @@
+.input-area .mic-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: #555555d2;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 2em;
+    transition: background-color 0.3s ease;
+}
+
+.input-area .mic-button:hover {
+    background-color: rgba(202, 194, 194, 0.281);
+    transform: scale(1.1);
+}
+
+.mic-button.realtime {
+    background-color: #16bb16;
+    animation: pulse 1.5s infinite;
+}
+
+.mic-button.stopping {
+    background-color: #fa0101;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.speech-status {
+    display: none;
+    margin-left: 10px;
+    font-style: italic;
+    font-size: 1.1em;  /* Make font bigger */
+    font-weight: bold; /* Make text bold */
+}
+
+.speech-status.listening {
+    color: #16bb16;  /* Green color for listening state */
+}
+
+.speech-status.preparing {
+    color: #555;     /* Gray color for preparing state */
+}
+
+.speech-status.stopping {
+    color: #fa0101;     /* Gray color for preparing state */
+}
+
