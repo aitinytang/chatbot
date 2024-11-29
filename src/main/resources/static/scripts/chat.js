@@ -15,6 +15,8 @@ class ChatManager {
         this.newConversationBtn = document.getElementById('newConversationBtn');
     
         this.recognizer = null;
+
+        this.activateChat();
         this.initializeEventListeners();
     }
 
@@ -37,16 +39,12 @@ class ChatManager {
 
     // Function to activate chat (change layout after first input)
     activateChat() {
-        this.isActive = true;
-        document.body.classList.add('active');
+        if (!this.isActive) {
+            this.isActive = true;
+            document.body.classList.add('active');
+        }
     }
     
-
-
-    // Existing code...
-
-
-
     // Function to save conversation history to localStorage
     saveConversation() {
         //localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
@@ -102,8 +100,13 @@ class ChatManager {
 
     // Function to send message with memoryId
     sendMessage() {
-        const message = userInput.value.trim();
+        const message = this.userInput.value.trim();
         if (message === '') return;
+
+        // Activate chat before appending the first message
+        if (!this.isActive) {
+            this.activateChat();
+        }
 
         // Display user's message
         this.appendMessage('user', message);
