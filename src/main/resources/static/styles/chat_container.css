@@ -206,12 +206,12 @@ body.active .chat-history {
 }
 
 .message.user .message-content {
-    background-color: #4fb9ff; /* Bright yellow for user messages */
+    background-color: #dce0e2; /* Bright yellow for user messages */
     color: #000000;
     border-bottom-right-radius: 0;
 }
 .message.bot .message-content {
-    background-color: #81c784; /* Bright green for bot messages */
+    background-color: #a5daa7; /* Bright green for bot messages */
     color: #000000;
     border-bottom-left-radius: 0;
 }
@@ -279,12 +279,12 @@ body.active .input-area {
 }
 
 .large-dots {
-    font-size: 24px;  /* Adjust this value to make dots bigger or smaller */
+    font-size: 50px;  /* Adjust this value to make dots bigger or smaller */
     font-weight: bold;
 }
 
 /* Loading Indicator Styling */
-#loading {
+.loading-indicator {
     display: none; /* Initially hidden */
     position: fixed;
     bottom: 80px; /* Positioned above the input area */
@@ -292,12 +292,8 @@ body.active .input-area {
     transform: translateX(-50%);
     padding: 10px 20px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
-    color: #555555;
-    font-style: italic;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
 }
+
 /* Responsive Design Adjustments */
 @media (max-width: 600px) {
     .chat-container {
