@@ -54,13 +54,12 @@ class ImageGen {
             // Add the prompt and image to chat history
             this.addImageToChat('bot', data.imageUrl);
         } catch (error) {
-            console.error('Error generating image:', error);
             this.chatManager.appendMessage('bot', 'Sorry, I couldn\'t generate the image. Please try again.');
         } finally {
             // Hide loading indicator
             this.loadingIndicator.style.display = 'none';
             clearInterval(dotInterval);
-            this.dotsElement.textContent = '...';            
+            this.dotsElement.textContent = '...';
         }
     }
 
@@ -73,6 +72,11 @@ class ImageGen {
         img.src = imageUrl;
         img.alt = 'Generated image';
         img.loading = 'lazy';
+        
+        img.style.maxWidth = '512px';  // Reduced from 100% to fixed width
+        img.style.height = 'auto';    
+        img.style.borderRadius = '8px';
+        img.style.maxHeight = '512px'; // Added max height constraint
 
         messageDiv.appendChild(img);
         chatHistory.appendChild(messageDiv);
