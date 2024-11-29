@@ -324,13 +324,13 @@ body.active .input-area {
     background-color: #fff;
 }
 .input-area input:focus {
-    border-color: #ff5722;
+    border-color: #CCFFE5;
     outline: none;
 }
 .input-area button {
     margin-left: 10px;
     padding: 10px 20px;
-    background-color: #ff5722;
+    background-color: #FF4500;
     color: #ffffff;
     border: none;
     border-radius: 20px;
@@ -338,8 +338,9 @@ body.active .input-area {
     font-size: 1em;
     transition: background-color 0.3s ease;
 }
+
 .input-area button:hover {
-    background-color: #e64a19;
+    transform: scale(1.1);
 }
 
 /* Loading Indicator Styling */
@@ -390,7 +391,7 @@ body.active .input-area {
 .input-area .mic-button {
     margin-left: 10px;
     padding: 10px 20px;
-    background-color: #ff5722;
+    background-color: #FF4500;
     color: #ffffff;
     border: none;
     border-radius: 20px;
@@ -400,11 +401,9 @@ body.active .input-area {
 }
 
 .input-area .mic-button:hover {
-    background-color: #e64a19;
+    transform: scale(1.1);
 }
-.mic-button.recording {
-    background-color: #d32f2f;
-}
+
 .image-button {
     background: none;
     border: none;
@@ -430,7 +429,7 @@ body.active .input-area {
 }
 
 .mic-button.realtime {
-    background-color: #ff4444;
+    background-color: #00FF00;
     animation: pulse 1.5s infinite;
 }
 
@@ -441,7 +440,19 @@ body.active .input-area {
 }
 
 .speech-status {
-    color: #666;
+    display: none;
+    margin-left: 10px;
     font-style: italic;
-    margin-right: 10px;
+}
+
+.speech-status.listening {
+    color: #2ecc71;  /* Green color for listening state */
+}
+
+.speech-status.preparing {
+    color: #555;     /* Gray color for preparing state */
+}
+
+.speech-status.stopping {
+    color: #fa0101;     /* Gray color for preparing state */
 }
