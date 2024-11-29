@@ -4,10 +4,15 @@ class SpeechManager {
     constructor(chatManager) {
         this.recognizer = null;
         this.chatManager = chatManager;
+
         this.loadingIndicator = document.getElementById('loading');
         this.userInput = document.getElementById('userInput');
-
+        this.speechStatus = document.getElementById('speechStatus');
+        this.inputArea = document.querySelector('.input-area');
         this.realtimeMicButton = document.getElementById('realtimeMicButton');
+        this.sendButton = document.getElementById('sendButton');
+        this.imageButton = document.getElementById('imageButton');
+
         this.isRealtimeMode = false;
         this.isRecognizing = false;
         
@@ -21,10 +26,8 @@ class SpeechManager {
     toggleRealtimeRecording() {
         if (this.recognizer) {
             if (this.isRecognizing) {
-                console.log('Stopping realtime recognition.');
                 this.stopRealtimeRecognition();
             } else {
-                console.log('Starting realtime recognition.');
                 this.startRealtimeRecognition();
             }
         } else {
@@ -34,6 +37,13 @@ class SpeechManager {
 
     startRealtimeRecognition() {
         this.isRealtimeMode = true;
+
+        this.speechStatus.style.display = 'block';
+        this.speechStatus.textContent = 'Listening...';
+        this.userInput.style.display = 'none';
+        this.sendButton.style.display = 'none';
+        this.imageButton.style.display = 'none';
+
         this.recognizer.startContinuousRecognitionAsync(
             () => {
                 console.log('Realtime recognition started.');
@@ -48,7 +58,9 @@ class SpeechManager {
         );
     }
 
-    stopRealtimeRecognition() {
+    stopRealtimeRecognition() {        
+        this.speechStatus.textContent = 'Stoping...';
+
         this.recognizer.stopContinuousRecognitionAsync(
             () => {
                 console.log('Realtime recognition stopped.');
@@ -56,6 +68,11 @@ class SpeechManager {
                 this.realtimeMicButton.classList.remove('realtime');
                 this.realtimeMicButton.textContent = '🎙️';
                 this.isRealtimeMode = false;
+                
+                this.speechStatus.style.display = 'none';
+                this.userInput.style.display = '';
+                this.sendButton.style.display = '';
+                this.imageButton.style.display = '';
             },
             (err) => {
                 console.error('Error stopping realtime recognition:', err);
