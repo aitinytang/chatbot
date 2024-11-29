@@ -11,7 +11,6 @@ class ChatManager {
         this.loadingIndicator = document.getElementById('loading');
         this.dotsElement = document.getElementById('dots');
         this.userInput = document.getElementById('userInput');
-        this.sendButton = document.getElementById('sendButton');
         this.newConversationBtn = document.getElementById('newConversationBtn');
     
         this.recognizer = null;
@@ -32,8 +31,6 @@ class ChatManager {
     }
 
     initializeEventListeners() {
-        this.sendButton.addEventListener('click', () => this.sendMessage());
-
         // Enter key press
         this.userInput.addEventListener('keypress', (event) => {
             if (event.key === 'Enter' && !event.shiftKey) {
