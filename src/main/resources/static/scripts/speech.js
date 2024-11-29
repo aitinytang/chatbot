@@ -13,8 +13,7 @@ class SpeechManager {
         this.sendButton = document.getElementById('sendButton');
         this.imageButton = document.getElementById('imageButton');
 
-        this.isRealtimeMode = false;
-        this.isRecognizing = false;
+        this.sm = 'init';
         
         this.setupEventListeners();
     }
@@ -24,33 +23,37 @@ class SpeechManager {
     }
     
     toggleRealtimeRecording() {
+        console.log('Toggling realtime recording');
         if (this.recognizer) {
-            if (this.isRecognizing) {
+            if (this.sm === 'started') {
+                console.log('Stopping realtime recognition');
                 this.stopRealtimeRecognition();
-            } else {
+            } else if (this.sm === 'init' || this.sm === 'stopped') {
+                console.log('Starting realtime recognition');
                 this.startRealtimeRecognition();
+            } else if (this.sm === 'starting' || this.sm === 'stopping') {
+                console.log('Please waitting...');
             }
         } else {
+            console.log('Initializing recognizer');
             this.initializeRealtimeRecognizer();
         }
     }
 
     startRealtimeRecognition() {
-        this.isRealtimeMode = true;
-
         // Show "Preparing..." status first
+        this.sm = 'starting';
         this.speechStatus.style.display = 'inline';
         this.speechStatus.textContent = 'Preparing...';
         this.speechStatus.classList.add('preparing');
 
         this.userInput.style.display = 'none';
-        this.sendButton.style.display = 'none';
         this.imageButton.style.display = 'none';
 
         this.recognizer.startContinuousRecognitionAsync(
             () => {
-                console.log('Realtime recognition started.');
-                this.isRecognizing = true;
+                console.log('Realtime recognition started');
+                this.sm = 'started';
                 this.realtimeMicButton.classList.add('realtime');
                 this.realtimeMicButton.textContent = '⏺️';
 
@@ -61,31 +64,36 @@ class SpeechManager {
             },
             (err) => {
                 console.error('Error starting realtime recognition:', err);
-                this.isRecognizing = false;
+                this.sm = 'init';
             }
         );
     }
 
-    stopRealtimeRecognition() {        
-        this.speechStatus.textContent = 'Stoping...';
+    stopRealtimeRecognition() {      
+        this.sm = 'stopping';
+
+        this.speechStatus.textContent = 'Stopping...';
         this.speechStatus.classList.remove('listening');
         this.speechStatus.classList.add('stopping');
 
+        this.realtimeMicButton.classList.remove('realtime');
+        this.realtimeMicButton.classList.add('stopping');
+
         this.recognizer.stopContinuousRecognitionAsync(
             () => {
-                console.log('Realtime recognition stopped.');
-                this.isRecognizing = false;
-                this.realtimeMicButton.classList.remove('realtime');
+                console.log('Realtime recognition stopped');
+                this.sm = 'stopped';
+                this.realtimeMicButton.classList.remove('stopping');
                 this.realtimeMicButton.textContent = '🎙️';
-                this.isRealtimeMode = false;
                 
+                this.speechStatus.classList.remove('stopping');
                 this.speechStatus.style.display = 'none';
                 this.userInput.style.display = '';
-                this.sendButton.style.display = '';
                 this.imageButton.style.display = '';
             },
             (err) => {
                 console.error('Error stopping realtime recognition:', err);
+                this.sm = 'init';
             }
         );
     }

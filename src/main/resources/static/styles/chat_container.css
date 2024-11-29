@@ -1,67 +1,3 @@
-
-/* Reset CSS */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: transparent; /* Transparent background */
-    height: 100vh;
-    width: 100vw;
-    position: relative;
-    overflow: hidden; /* Prevent scrollbar */
-    display: flex;
-}
-
-.sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: white;
-    padding: 15px;
-    box-sizing: border-box;
-    height: 100vh;
-    overflow-y: auto;
-}
-
-.sidebar h3 {
-    margin-top: 20px;
-}
-
-.sidebar button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #1abc9c;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.sidebar button:hover {
-    background-color: #16a085;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar li {
-    padding: 10px;
-    background-color: #34495e;
-    margin-bottom: 5px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.sidebar li:hover {
-    background-color: #3d566e;
-}
-        
 /* Chat Container Styling */
 .chat-container {
     /* Remove absolute positioning */
@@ -330,7 +266,6 @@ body.active .input-area {
 .input-area button {
     margin-left: 10px;
     padding: 10px 20px;
-    background-color: #06974c;
     color: hsl(0, 100%, 100%);
     border: #555555d2;
     border-radius: 20px;
@@ -341,6 +276,11 @@ body.active .input-area {
 
 .input-area button:hover {
     transform: scale(1.1);
+}
+
+.large-dots {
+    font-size: 24px;  /* Adjust this value to make dots bigger or smaller */
+    font-weight: bold;
 }
 
 /* Loading Indicator Styling */
@@ -374,87 +314,4 @@ body.active .input-area {
     body.active .input-area {
         width: 95%;
     }
-    /* Ensure message alignment remains consistent on smaller screens */
-    .message.user {
-        justify-content: flex-end;
-    }
-
-    .message.bot {
-        justify-content: flex-start;
-    }
-
-    .message-content {
-        max-width: 80%; /* Adjust as needed for smaller screens */
-    }
-}
-
-.input-area .mic-button {
-    margin-left: 10px;
-    padding: 10px 20px;
-    background-color: #06974c;
-    color: #ffffff;
-    border: #555555d2;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-}
-
-.input-area .mic-button:hover {
-    transform: scale(1.1);
-}
-
-.image-button {
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    cursor: pointer;
-    padding: 5px 10px;
-    transition: transform 0.2s;
-}
-
-.image-button:hover {
-    transform: scale(1.1);
-}
-
-.chat-message img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin: 10px 0;
-}
-
-.large-dots {
-    font-size: 24px;  /* Adjust this value to make dots bigger or smaller */
-    font-weight: bold;
-}
-
-.mic-button.realtime {
-    background-color: #00FF00;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-.speech-status {
-    display: none;
-    margin-left: 10px;
-    font-style: italic;
-    font-size: 1.2em;  /* Make font bigger */
-    font-weight: bold; /* Make text bold */
-}
-
-.speech-status.listening {
-    color: #2ecc71;  /* Green color for listening state */
-}
-
-.speech-status.preparing {
-    color: #555;     /* Gray color for preparing state */
-}
-
-.speech-status.stopping {
-    color: #fa0101;     /* Gray color for preparing state */
 }
