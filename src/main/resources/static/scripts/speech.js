@@ -4,7 +4,6 @@ class SpeechManager {
     constructor(chatManager) {
         this.recognizer = null;
         this.chatManager = chatManager;
-        this.micButton = document.getElementById('micButton');
         this.loadingIndicator = document.getElementById('loading');
         this.userInput = document.getElementById('userInput');
 
@@ -16,53 +15,11 @@ class SpeechManager {
     }
 
     setupEventListeners() {
-        this.micButton.addEventListener('click', () => this.toggleRecording());
         this.realtimeMicButton.addEventListener('click', () => this.toggleRealtimeRecording());
     }
     
-    // Function to toggle recording using Azure Speech SDK
-    toggleRecording() {
-        if (this.recognizer) {
-            console.log('Recognizer is defined:', this.recognizer);
-            if (this.recognizer.isRecognizing) {
-                this.recognizer.stopContinuousRecognitionAsync(() => {
-                    console.log('Recognition stopped.');
-                    this.micButton.classList.remove('recording');
-                    this.micButton.textContent = '🎤';
-                }, (err) => {
-                    console.error('Error stopping recognition:', err);
-                });
-            } else {
-                this.startRecognition();
-            }
-        } else {
-            console.warn('Recognizer is undefined.');
-        }
-    }
-
-    // Function to start recognition
-    startRecognition() {
-        if (!this.recognizer) {
-            this.initializeRecognizer();
-        }
-        this.recognizer.startContinuousRecognitionAsync(
-            () => {
-                console.log('Recognition started.');
-                this.micButton.classList.add('recording');
-                this.micButton.textContent = '⏹️';
-            },
-            (err) => {
-                console.error('Error starting recognition:', err);
-            }
-        );
-    }
-
-    // Add new method for realtime recording
     toggleRealtimeRecording() {
-        console.log('regognizer is:', this.recognizer);
         if (this.recognizer) {
-            console.log('regognizer isRecognizing:', this.recognizer.isRecognizing);
-            console.log('regognizer isRealtimeMode:', this.recognizer.isRealtimeMode);
             if (this.isRecognizing) {
                 console.log('Stopping realtime recognition.');
                 this.stopRealtimeRecognition();
@@ -75,7 +32,6 @@ class SpeechManager {
         }
     }
 
-    // Add new method for realtime recognition
     startRealtimeRecognition() {
         this.isRealtimeMode = true;
         this.recognizer.startContinuousRecognitionAsync(
