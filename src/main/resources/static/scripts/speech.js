@@ -38,8 +38,11 @@ class SpeechManager {
     startRealtimeRecognition() {
         this.isRealtimeMode = true;
 
-        this.speechStatus.style.display = 'block';
-        this.speechStatus.textContent = 'Listening...';
+        // Show "Preparing..." status first
+        this.speechStatus.style.display = 'inline';
+        this.speechStatus.textContent = 'Preparing...';
+        this.speechStatus.classList.add('preparing');
+
         this.userInput.style.display = 'none';
         this.sendButton.style.display = 'none';
         this.imageButton.style.display = 'none';
@@ -50,6 +53,11 @@ class SpeechManager {
                 this.isRecognizing = true;
                 this.realtimeMicButton.classList.add('realtime');
                 this.realtimeMicButton.textContent = '⏺️';
+
+                // Update to "Listening..." status with green color
+                this.speechStatus.textContent = 'Listening...';
+                this.speechStatus.classList.remove('preparing');
+                this.speechStatus.classList.add('listening');
             },
             (err) => {
                 console.error('Error starting realtime recognition:', err);
@@ -60,6 +68,8 @@ class SpeechManager {
 
     stopRealtimeRecognition() {        
         this.speechStatus.textContent = 'Stoping...';
+        this.speechStatus.classList.remove('listening');
+        this.speechStatus.classList.add('stopping');
 
         this.recognizer.stopContinuousRecognitionAsync(
             () => {
