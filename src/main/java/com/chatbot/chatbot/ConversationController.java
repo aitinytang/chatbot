@@ -31,11 +31,10 @@ public class ConversationController {
     }
 
     // Endpoint to handle chat messages
-    @GetMapping("/chatlocal")
+    @GetMapping("/chat")
     public ResponseEntity<String> chat(@RequestParam String input, @RequestParam String memoryId) {
         // Validate memoryId
         if (!conversations.containsKey(memoryId)) {
-            System.out.println("error memoryId: ");
             return ResponseEntity.badRequest().body("Invalid memoryId.");
         }
 

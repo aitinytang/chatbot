@@ -16,8 +16,6 @@ body {
     display: flex;
 }
 
-
-
 .sidebar {
     width: 250px;
     background-color: #2c3e50;
@@ -190,14 +188,89 @@ body.active .chat-history {
     justify-content: flex-start;
 }
 
+
 .message-content {
     max-width: 70%;
     padding: 10px 15px;
     border-radius: 15px;
     word-wrap: break-word;
+    line-height: 1.5;
 }
+
+/* Rich text styles */
+.message-content p {
+    margin: 0.5em 0;
+}
+
+.message-content strong {
+    font-weight: 600;
+}
+
+.message-content em {
+    font-style: italic;
+}
+
+.message-content code {
+    background-color: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.message-content pre {
+    background-color: #f5f5f5;
+    padding: 1em;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.message-content ul, .message-content ol {
+    margin: 0.5em 0;
+    padding-left: 2em;
+}
+
+.message-content table {
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+.message-content th, .message-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.message-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.message-content blockquote {
+    border-left: 4px solid #ddd;
+    margin: 1em 0;
+    padding-left: 1em;
+    color: #666;
+}
+
+.message-content h1, 
+.message-content h2, 
+.message-content h3, 
+.message-content h4, 
+.message-content h5, 
+.message-content h6 {
+    margin: 1em 0 0.5em;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.message-content hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 1em 0;
+}
+
 .message.user .message-content {
-    background-color: #ffd54f; /* Bright yellow for user messages */
+    background-color: #4fb9ff; /* Bright yellow for user messages */
     color: #000000;
     border-bottom-right-radius: 0;
 }
@@ -345,4 +418,9 @@ body.active .input-area {
     max-width: 100%;
     border-radius: 8px;
     margin: 10px 0;
+}
+
+.large-dots {
+    font-size: 24px;  /* Adjust this value to make dots bigger or smaller */
+    font-weight: bold;
 }

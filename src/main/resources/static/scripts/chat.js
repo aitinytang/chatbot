@@ -18,6 +18,17 @@ class ChatManager {
 
         this.activateChat();
         this.initializeEventListeners();
+
+        // Configure marked options for better list handling
+        marked.setOptions({
+            gfm: true,
+            breaks: true,
+            headerIds: false,
+            mangle: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: true
+        });
     }
 
     initializeEventListeners() {
@@ -65,7 +76,17 @@ class ChatManager {
 
         const messageContent = document.createElement('div');
         messageContent.classList.add('message-content');
-        messageContent.textContent = message;
+        
+        const htmlContent = marked.parse(message); // Convert Markdown to HTML
+        messageContent.innerHTML = DOMPurify.sanitize(htmlContent, {
+            ALLOWED_TAGS: [
+                'p', 'br', 'b', 'i', 'em', 'strong', 'a', 'code', 'pre',
+                'ul', 'ol', 'li', 'table', 'thead', 'tbody', 'tr', 'th', 'td',
+                'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                'blockquote', 'hr', 'del', 'input', 'details', 'summary'
+            ],
+            ALLOWED_ATTR: ['href', 'target', 'src', 'alt', 'class', 'checked', 'type']
+        });
 
         // Add timestamp
         const timestamp = document.createElement('span');
@@ -127,7 +148,7 @@ class ChatManager {
         }, 500);
 
         // Send message to the server with memoryId
-        fetch(`/api/chatlocal?input=${encodeURIComponent(message)}&memoryId=${this.currentMemoryId}`)
+        fetch(`/api/chat?input=${encodeURIComponent(message)}&memoryId=${this.currentMemoryId}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
