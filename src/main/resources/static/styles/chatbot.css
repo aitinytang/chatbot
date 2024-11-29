@@ -16,12 +16,7 @@ body {
     display: flex;
 }
 
-/* Chat container layout */
-.main-container {
-    display: flex;
-    height: 100vh;
-    background-color: white;
-}
+
 
 .sidebar {
     width: 250px;
@@ -178,30 +173,28 @@ body.active .chat-history {
     right: 0;
     margin: 0 auto;
 }
-/* Message Styling */
+
 .message {
-    margin-bottom: 20px;
     display: flex;
-    width: 100%; /* Add this to ensure full width */
-    transition: all 0.3s ease;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
+
 .message.user {
     justify-content: flex-end;
 }
+
 .message.bot {
     justify-content: flex-start;
 }
+
 .message-content {
     max-width: 70%;
     padding: 10px 15px;
     border-radius: 15px;
-    position: relative;
     word-wrap: break-word;
-    flex-shrink: 0; /* Add this to prevent content from shrinking */
-    /* Remove any existing margin settings */
-    margin: 0;
-    /* Ensure consistent display */
-    display: inline-block;
 }
 .message.user .message-content {
     background-color: #ffd54f; /* Bright yellow for user messages */
