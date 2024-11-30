@@ -47,7 +47,10 @@ class App {
 
         document.getElementById('sidebarToggle').addEventListener('click', function() {
             const sidebar = document.querySelector('.sidebar');
+            const newChatBtn = document.getElementById('newConversationBtn');
+
             sidebar.classList.toggle('collapsed');
+            newChatBtn.classList.toggle('collapsed');
         });
     }
 }
