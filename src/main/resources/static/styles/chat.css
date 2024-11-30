@@ -1,22 +1,13 @@
-/* Chat Container Styling */
 .chat-container {
-    /* Remove absolute positioning */
     position: relative;
-    top: 0;
-    left: 0;
-    transform: none;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    transition: all 0.5s ease;
+    align-items: flex-start; /* Change from center to flex-start */
     flex: 1;
-    height: 100vh; /* Add height to fill the viewport */
-    width: 70%; /* Keep the width adjusted for sidebar */
+    height: 100vh;
+    width: 90%;
     max-width: 1000px;
-    margin-left: calc(250px + 15%);;
+    margin-left: calc(250px + 5%);
     margin-right: auto;
     padding: 20px 0;
     justify-content: flex-start;
@@ -24,8 +15,8 @@
 }
 
 .chat-container.collapsed {
-    width: 70%;
-    margin-left: 15%;
+    width: 90%;
+    margin-left: 5%;
 }
 
 .typing-container {
@@ -60,26 +51,25 @@
 .chat-history {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 140px); /* Adjust height based on header and input */
+    height: calc(100vh - 140px);
     padding: 20px;
     overflow-y: auto;
-    background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent light green */
+    background-color: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     position: relative;
-    top: 0;
     width: 100%;
     box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
     left: 0;
     right: 0;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .message {
     display: flex;
     width: 100%;
     margin-bottom: 20px;
-    padding: 0 20px;
+    padding: 0;
     box-sizing: border-box;
 }
 
