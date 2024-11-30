@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface AccountMapper {
-    @Select("SELECT * FROM account limit 1")
+    @Select("SELECT * FROM account WHERE username = #{username}")
     Account getUser(String username);
 }
