@@ -11,22 +11,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 600px;
     transition: all 0.5s ease;
     flex: 1;
-    margin-left: 250px;
     height: 100vh; /* Add height to fill the viewport */
-    width: calc(100% - 250px); /* Keep the width adjusted for sidebar */
-    max-width: none;
-    padding: 20px;
+    width: 70%; /* Keep the width adjusted for sidebar */
+    max-width: 1000px;
+    margin-left: calc(250px + 15%);;
+    margin-right: auto;
+    padding: 20px 0;
     justify-content: flex-start;
-    align-items: center;
     transition: margin-left 0.3s ease;
 }
 
 .chat-container.collapsed {
-    margin-left: 0;
-    width: 100%;
+    width: 70%;
+    margin-left: 15%;
 }
 
 .typing-container {
@@ -91,7 +90,6 @@
 .message.bot {
     justify-content: flex-start;
 }
-
 
 .message-content {
     max-width: 70%;
@@ -178,11 +176,13 @@
     color: #000000;
     border-bottom-right-radius: 0;
 }
+
 .message.bot .message-content {
     background-color: #a5daa7; /* Bright green for bot messages */
     color: #000000;
     border-bottom-left-radius: 0;
 }
+
 /* Timestamp Styling */
 .timestamp {
     display: block;
@@ -195,16 +195,22 @@
 .input-area {
     position: fixed;
     bottom: 90px;
-    left: calc(250px + 45%);
     transform: translate(-50%, 50%);
-    max-width: 800px;
     display: inline-flex;  /* Change to inline-flex */
     align-items: center;
     padding: 10px 20px;
-    width: auto;  /* Change to auto */
+    width: 70%;
+    left: calc(250px + 35%);
+    transform: translate(-50%, 50%);
+    max-width: 800px;
     background-color: rgba(240, 237, 237, 0.89);
     border-radius: 20px;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease;
+}
+
+.input-area.collapsed {
+    left: 35%; /* Center when sidebar is collapsed */
 }
 
 .input-area input {
@@ -217,10 +223,12 @@
     transition: border-color 0.3s ease;
     background-color: #fff;
 }
+
 .input-area input:focus {
     border-color: #CCFFE5;
     outline: none;
 }
+
 .input-area button {
     margin-left: 10px;
     padding: 10px 20px;
@@ -241,15 +249,19 @@
     font-weight: bold;
 }
 
-/* Loading Indicator Styling */
 .loading-indicator {
     display: none; /* Initially hidden */
     position: fixed;
     bottom: 130px; /* Positioned above the input area */
-    left: calc(250px + 45%);
+    left: calc(250px + 35%);
     transform: translateX(-50%);
     padding: 10px 20px;
     text-align: center;
+    transition: left 0.3s ease;
+}
+
+.loading-indicator.collapsed {
+    left: 35%;
 }
 
 /* Responsive Design Adjustments */
