@@ -1,4 +1,4 @@
-package com.chatbot.chatbot;
+package com.chatbot.chatbot.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chatbot.chatbot.ChatApp;
+
 import dev.langchain4j.data.image.Image;
 import dev.langchain4j.model.azure.AzureOpenAiImageModel;
 import dev.langchain4j.model.output.Response;
@@ -19,7 +21,7 @@ import dev.langchain4j.model.output.Response;
 public class ImageGenerationController {
     private final AzureOpenAiImageModel imgModel;
 
-    public ImageGenerationController(ChatbotApplication chatbotApplication) {
+    public ImageGenerationController(ChatApp chatbotApplication) {
         this.imgModel = chatbotApplication.getImgModel();
     }
    
