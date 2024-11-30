@@ -6,6 +6,9 @@
     box-sizing: border-box;
     height: 100vh;
     overflow-y: auto;
+    position: fixed;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
 }
 
 .sidebar h3 {
@@ -42,4 +45,25 @@
 
 .sidebar li:hover {
     background-color: #3d566e;
+}
+
+.sidebar .sidebar-toggle {
+    position: fixed;
+    left: 0;
+    top: 10px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1000;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;  /* Removed background color */
+}
+
+.sidebar.collapsed {
+    transform: translateX(-100%);
 }
