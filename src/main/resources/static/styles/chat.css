@@ -11,44 +11,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: calc(100% - 250px); /* Adjust width to account for sidebar */
     max-width: 600px;
     transition: all 0.5s ease;
     flex: 1;
     margin-left: 250px;
     height: 100vh; /* Add height to fill the viewport */
-    padding: 20px;
-}
-
-/* Active State for Chat Container */
-body.active .chat-container {
     width: calc(100% - 250px); /* Keep the width adjusted for sidebar */
-    height: 100vh;
     max-width: none;
     padding: 20px;
     justify-content: flex-start;
     align-items: center;
+    transition: margin-left 0.3s ease;
 }
 
-.chat-header {
-    position: fixed;
-    top: 45%;
-    left: calc(250px + 45%);
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #120101;
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    border-radius: 10px;
-    white-space: nowrap;
-    z-index: 1;
-}
-
-/* Hidden State for Chat Header */
-body.active .chat-header {
-    display: none; /* Hide header after activation */
+.chat-container.collapsed {
+    margin-left: 0;
+    width: 100%;
 }
 
 .typing-container {
@@ -96,13 +74,6 @@ body.active .chat-header {
     width: 100%;
     box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-}
-/* Active State for Chat History */
-body.active .chat-history {
-    display: flex;
-    flex-direction: column;
-    width: 100%; /* Full width */
-    height: calc(100vh - 140px); /* Adjust height if needed */
     left: 0;
     right: 0;
     margin: 0 auto;
@@ -226,7 +197,7 @@ body.active .chat-history {
 
 .input-area {
     position: fixed;
-    bottom: 50%;
+    bottom: 90px;
     left: calc(250px + 45%);
     transform: translate(-50%, 50%);
     max-width: 800px;
@@ -236,17 +207,7 @@ body.active .chat-history {
     width: auto;  /* Change to auto */
     background-color: rgba(240, 237, 237, 0.89);
     border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Active State for Input Area */
-body.active .input-area {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;  /* Change this to auto as well */
-    max-width: 800px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 .input-area input {
@@ -287,7 +248,7 @@ body.active .input-area {
 .loading-indicator {
     display: none; /* Initially hidden */
     position: fixed;
-    bottom: 80px; /* Positioned above the input area */
+    bottom: 150px; /* Positioned above the input area */
     left: 50%;
     transform: translateX(-50%);
     padding: 10px 20px;
@@ -306,8 +267,5 @@ body.active .input-area {
     }
     .input-area {
         max-width: 95%;
-    }
-    body.active .input-area {
-        width: 95%;
     }
 }

@@ -3,7 +3,6 @@ import { API_ENDPOINTS } from './config.js';
 class ChatManager {
     constructor() {
         this.messages = [];
-        this.isActive = false; // Track if chat has been activated
         this.currentMemoryId = null; // Will be set by the server
         this.conversationHistory = {};
 
@@ -15,7 +14,6 @@ class ChatManager {
     
         this.recognizer = null;
 
-        this.activateChat();
         this.initializeEventListeners();
 
         // Configure marked options for better list handling
@@ -45,14 +43,6 @@ class ChatManager {
         });
     }
 
-    // Function to activate chat (change layout after first input)
-    activateChat() {
-        if (!this.isActive) {
-            this.isActive = true;
-            document.body.classList.add('active');
-        }
-    }
-    
     // Function to save conversation history to localStorage
     saveConversation() {
         //localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
@@ -107,11 +97,6 @@ class ChatManager {
             this.saveConversation();
         }
 
-        // Activate chat if this is the first message
-        if (!this.isActive && this.messages.length === 1) {
-            this.activateChat();
-        }
-
         // Scroll to the bottom
         this.chatHistory.scrollTop = this.chatHistory.scrollHeight;
     }
@@ -120,11 +105,6 @@ class ChatManager {
     sendMessage() {
         const message = this.userInput.value.trim();
         if (message === '') return;
-
-        // Activate chat before appending the first message
-        if (!this.isActive) {
-            this.activateChat();
-        }
 
         // Display user's message
         this.appendMessage('user', message);
@@ -191,7 +171,7 @@ class ChatManager {
                 //console.log(currentMemoryId);
                 this.messages = [];
                 this.chatHistory.innerHTML = '';
-                this.activateChat();
+                //this.activateChat();
                 this.renderConversationList();
             })
             .catch(error => {
