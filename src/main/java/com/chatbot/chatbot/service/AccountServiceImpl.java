@@ -7,15 +7,15 @@ import com.chatbot.chatbot.mapper.AccountMapper;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-    private final AccountMapper accountDao;
+    private final AccountMapper accountMapper;
 
     @Autowired
-    public AccountServiceImpl(AccountMapper accountDao) {
-        this.accountDao = accountDao;
+    public AccountServiceImpl(AccountMapper accountMapper) {
+        this.accountMapper = accountMapper;
     }
 
     @Override
     public Account createAccount() {
-        return accountDao.getUser("admin");
+        return accountMapper.getUser("tangjia");
     }   
 }
