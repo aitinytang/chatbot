@@ -16,7 +16,7 @@ public class ChatApp {
     Assistant assistant;
     AzureOpenAiImageModel imgModel;
 
-    interface Assistant  {
+    public interface Assistant  {
         String chat(@MemoryId int memoryId, @UserMessage String message);
     }
 

@@ -15,12 +15,12 @@
 
 .mic-button.realtime {
     /* background-color: #16bb16; */
-    animation: pulse 1.5s infinite;
+    animation: pulse 2s ease-in-out infinite;
 }
 
 .mic-button.stopping {
     /* background-color: #fa0101; */
-    animation: pulse 1.5s infinite;
+    animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -39,16 +39,13 @@
 
 .speech-status.listening {
     color: #16bb16;  /* Green color for listening state */
-    animation: pulse 1.5s infinite;
 }
 
 .speech-status.preparing {
     color: #555;     /* Gray color for preparing state */
-    animation: pulse 1.5s infinite;
 }
 
 .speech-status.stopping {
     color: #fa0101;     /* Gray color for preparing state */
-    animation: pulse 1.5s infinite;
 }
 
