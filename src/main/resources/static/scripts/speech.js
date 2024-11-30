@@ -55,8 +55,7 @@ class SpeechManager {
                 console.log('Realtime recognition started');
                 this.sm = 'started';
                 this.realtimeMicButton.classList.add('realtime');
-                this.realtimeMicButton.textContent = '⏺️';
-
+                
                 // Update to "Listening..." status with green color
                 this.speechStatus.textContent = 'Listening...';
                 this.speechStatus.classList.remove('preparing');
@@ -78,6 +77,7 @@ class SpeechManager {
 
         this.realtimeMicButton.classList.remove('realtime');
         this.realtimeMicButton.classList.add('stopping');
+        this.realtimeMicButton.textContent = '🛑';
 
         this.recognizer.stopContinuousRecognitionAsync(
             () => {

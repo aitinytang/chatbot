@@ -14,12 +14,12 @@
 }
 
 .mic-button.realtime {
-    background-color: #16bb16;
+    /* background-color: #16bb16; */
     animation: pulse 1.5s infinite;
 }
 
 .mic-button.stopping {
-    background-color: #fa0101;
+    /* background-color: #fa0101; */
     animation: pulse 1.5s infinite;
 }
 
