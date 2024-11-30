@@ -1,7 +1,9 @@
 package com.chatbot.chatbot;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.azure.AzureOpenAiChatModel;
@@ -12,6 +14,8 @@ import dev.langchain4j.service.UserMessage;
 import jakarta.annotation.PostConstruct;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {"com.chatbot.chatbot"})
+@MapperScan("com.chatbot.chatbot.mapper")
 public class ChatApp {
     Assistant assistant;
     AzureOpenAiImageModel imgModel;
