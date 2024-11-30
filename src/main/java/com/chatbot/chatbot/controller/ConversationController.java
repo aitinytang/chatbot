@@ -1,9 +1,10 @@
-package com.chatbot.chatbot;
+package com.chatbot.chatbot.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.chatbot.chatbot.ChatbotApplication.Assistant;
+import com.chatbot.chatbot.ChatApp;
+import com.chatbot.chatbot.ChatApp.Assistant;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ConversationController {
     private final Assistant assistant;
 
-    public ConversationController(ChatbotApplication chatbotApplication) {
+    public ConversationController(ChatApp chatbotApplication) {
         this.assistant = chatbotApplication.getAssistant();
     }
 

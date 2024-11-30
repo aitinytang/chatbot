@@ -12,7 +12,7 @@ import dev.langchain4j.service.UserMessage;
 import jakarta.annotation.PostConstruct;
 
 @SpringBootApplication
-public class ChatbotApplication {
+public class ChatApp {
     Assistant assistant;
     AzureOpenAiImageModel imgModel;
 
@@ -51,8 +51,8 @@ public class ChatbotApplication {
     }
 
     public static void main(String[] args) {
-        ChatbotApplication app = new ChatbotApplication();
+        ChatApp app = new ChatApp();
         app.initModel();
-        SpringApplication.run(ChatbotApplication.class, args);
+        SpringApplication.run(ChatApp.class, args);
     }
 }
