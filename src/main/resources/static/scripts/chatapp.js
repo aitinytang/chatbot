@@ -44,6 +44,11 @@ class App {
                 setTimeout(initSpeechAfterRender, 100);
             }
         });
+
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('collapsed');
+        });
     }
 }
 
