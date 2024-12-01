@@ -189,14 +189,14 @@
     display: inline-flex;  /* Change to inline-flex */
     align-items: center;
     padding: 10px 20px;
-    width: 70%;
+    min-width: fit-content;
     left: calc(250px + 35%);
     transform: translate(-50%, 50%);
     max-width: 800px;
     background-color: rgba(240, 237, 237, 0.89);
     border-radius: 20px;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-    transition: left 0.3s ease;
+    transition: left 1s ease, width 1s ease; /* Add width transition */
 }
 
 .input-area.collapsed {
@@ -205,12 +205,13 @@
 
 .input-area input {
     flex: 1;
-    min-width: 500px;  /* Add minimum width */
+    min-width: 500px;
+    display: block;
     padding: 10px 15px;
     border: 1px solid #ddd;
     border-radius: 20px;
     font-size: 1em;
-    transition: border-color 0.3s ease;
+    transition: border-color 1s ease;
     background-color: #fff;
 }
 
