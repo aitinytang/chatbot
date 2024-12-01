@@ -18,7 +18,7 @@
 /* Auth button styling */
 .auth-btn {
     padding: 8px 20px;
-    background-color: #007bff;
+    background-color: #000307;
     color: white;
     border: none;
     border-radius: 4px;
@@ -28,5 +28,5 @@
 }
 
 .auth-btn:hover {
-    background-color: #0056b3;
+    background-color: #85878a;
 }
