@@ -17,27 +17,24 @@
         </div>
     </div>
 
-        <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
-        <button id="newConversationBtn" class="new-chat-btn">📝</button>
-        <div class="sidebar">
-            <h5>Conversation History</h5>
-            <ul id="conversationList"></ul>
+    <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+    <button id="newConversationBtn" class="new-chat-btn">📝</button>
+    <div class="sidebar">
+        <h5>Conversation History</h5>
+        <ul id="conversationList"></ul>
+    </div>
+    <div class="chat-container">
+        <div id="chatHistory" class="chat-history" role="log" aria-live="polite">
+            <!-- Messages will appear here -->
         </div>
-
-        <div class="chat-container">
-            <div id="chatHistory" class="chat-history" role="log" aria-live="polite">
-                <!-- Messages will appear here -->
-            </div>
-
-            <div id="loading" class="loading-indicator"><span id="dots" class="large-dots">...</span></div>
-
-            <div class="input-area initial-position">
-                <span id="speechStatus" class="speech-status" style="display: none;">Listening...</span>
-                <input type="text" id="userInput" placeholder="Type your message here..."   aria-label="Chat input" />
-                <button class="image-button" id="imageButton" aria-label="Generate image">🖼️</button>
-                <button id="realtimeMicButton" class="mic-button" title="Real-time Speech Recognition">🎙️</button>
-            </div>
+        <div id="loading" class="loading-indicator"><span id="dots" class="large-dots">...</span></div>
+        <div class="input-area">
+            <span id="speechStatus" class="speech-status" style="display: none;">Listening...</span>
+            <input type="text" id="userInput" placeholder="Type your message here..."   aria-label="Chatinput" />
+            <button class="image-button" id="imageButton" aria-label="Generate image">🖼️</button>
+            <button id="realtimeMicButton" class="mic-button" title="Real-time Speech Recognition">🎙️<button>
         </div>
+    </div>
 
     <script src="/scripts/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
