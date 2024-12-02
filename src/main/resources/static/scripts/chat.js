@@ -193,7 +193,8 @@ class ChatManager {
         const conversationList = document.getElementById('conversationList');
         conversationList.innerHTML = '';
 
-        for (const memoryId in this.conversationHistory) {
+        const memoryIds = Object.keys(this.conversationHistory).sort((a, b) => b - a);
+        for (const memoryId of memoryIds) {
             const li = document.createElement('li');
             li.textContent = this.getConversationPreview(memoryId);
             li.dataset.memoryId = memoryId;

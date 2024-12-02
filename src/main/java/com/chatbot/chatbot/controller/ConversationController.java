@@ -24,8 +24,7 @@ public class ConversationController {
     // Endpoint to create a new conversation
     @PostMapping("/createConversation")
     public ResponseEntity<CreateConversationResponse> createConversation() {
-        long timestamp = System.currentTimeMillis();
-        String memoryId = Long.toString(timestamp);
+        String memoryId = String.valueOf((int)System.currentTimeMillis() / 1000);
         conversations.put(memoryId, new ArrayList<>());
         return ResponseEntity.ok(new CreateConversationResponse(memoryId));
     }
