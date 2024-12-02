@@ -32,7 +32,8 @@
 .speech-status {
     display: none;
     margin-left: 10px;
-    transform: translateY(50%);
+    position: relative;
+    bottom: -10px;
     font-style: italic;
     font-size: 1.1em;  /* Make font bigger */
     font-weight: bold; /* Make text bold */
