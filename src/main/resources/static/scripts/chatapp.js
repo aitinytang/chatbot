@@ -46,17 +46,9 @@ class App {
         });
 
         document.getElementById('sidebarToggle').addEventListener('click', function() {
-            const sidebar = document.querySelector('.sidebar');
-            const newChatBtn = document.getElementById('newConversationBtn');
-            const chatContainer = document.querySelector('.chat-container');
-            const loadingIndicator = document.querySelector('.loading-indicator');
-            const inputArea = document.querySelector('.input-area');
-
-            sidebar.classList.toggle('collapsed');
-            newChatBtn.classList.toggle('collapsed');
-            chatContainer.classList.toggle('collapsed');
-            loadingIndicator.classList.toggle('collapsed');
-            inputArea.classList.toggle('collapsed');
+            document.querySelector('.sidebar').classList.toggle('unfold');
+            document.querySelector('.new-chat-btn').classList.toggle('unfold');
+            document.querySelector('.chat-container').classList.toggle('unfold');
         });
     }
 }

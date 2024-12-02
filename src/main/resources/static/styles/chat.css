@@ -8,15 +8,16 @@
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
+    transform: translateX(0);
     left: 0;
     right: 0;
     padding: 20px 0;
     justify-content: flex-start;
-    transition: margin-left 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
-.chat-container.collapsed {
-    margin: 0 auto;
+.chat-container.unfold {
+    transform: translateX(250px);
 }
 
 .typing-container {
@@ -82,7 +83,7 @@
 }
 
 .message-content {
-    max-width: 70%;
+    max-width: 90%;
     padding: 10px 15px;
     border-radius: 15px;
     word-wrap: break-word;
@@ -188,16 +189,11 @@
     bottom: 90px;
     margin: 0 auto;
     padding: 10px 20px;
-    max-width: 800px;
-    width: 90%;
+    width: fit-content;
     border-radius: 20px;
     background-color: rgba(240, 237, 237, 0.89);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: left 0.3s ease, width 0.3s ease; /* Add width transition */
-}
-
-.input-area.collapsed {
-    margin: 0 auto;
+    transition: all 0.3s ease; /* Add width transition */
 }
 
 .input-area input {
@@ -240,16 +236,9 @@
 .loading-indicator {
     display: none; /* Initially hidden */
     position: fixed;
-    bottom: 130px; /* Positioned above the input area */
-    left: calc(250px + 35%);
-    transform: translateX(-50%);
+    bottom: 200px; /* Positioned above the input area */
     padding: 10px 20px;
     text-align: center;
-    transition: left 0.3s ease;
-}
-
-.loading-indicator.collapsed {
-    left: 35%;
 }
 
 /* Responsive Design Adjustments */
