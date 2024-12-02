@@ -58,6 +58,11 @@ class ChatManager {
 
     // Function to append a message to the chat history
     async appendMessage(sender, message) {
+        this.renderMessage(sender, message);
+        this.storeMessage(sender, message);        
+    }
+
+    renderMessage(sender, message) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('message', sender);
 
@@ -85,20 +90,22 @@ class ChatManager {
         messageElement.appendChild(messageContent);
         this.chatHistory.appendChild(messageElement);
 
-        // Store the message
-        this.messages.push({ sender, message });
-
-        // Save message to the current conversation's history
-        if (this.currentMemoryId) {
-            if (!this.conversationHistory[this.currentMemoryId]) {
-                this.conversationHistory[this.currentMemoryId] = [];
-            }
-            this.conversationHistory[this.currentMemoryId].push({ sender, message });
-            this.saveConversation();
-        }
-
         // Scroll to the bottom
         this.chatHistory.scrollTop = this.chatHistory.scrollHeight;
+    }
+
+    storeMessage(sender, message) {
+         // Store the message
+         this.messages.push({ sender, message });
+
+         // Save message to the current conversation's history
+         if (this.currentMemoryId) {
+             if (!this.conversationHistory[this.currentMemoryId]) {
+                 this.conversationHistory[this.currentMemoryId] = [];
+             }
+             this.conversationHistory[this.currentMemoryId].push({ sender, message });
+             this.saveConversation();
+         }
     }
 
     // Function to send message with memoryId
@@ -199,10 +206,8 @@ class ChatManager {
     // Helper function to format memoryId for display (e.g., show date and last 4 chars)
     formatMemoryId(memoryId) {
         try {
-            const uuid = memoryId.split('-');
-            const timestamp = parseInt(uuid[1], 16); // Assuming UUID v1
-            const date = new Date(timestamp);
-            return `Conv-${date.toLocaleDateString()}-${memoryId.substring(memoryId.length - 4)}`;
+            const date = new Date();
+            return `${date.toLocaleDateString()}-${memoryId.substring(memoryId.length - 9)}`;
         } catch (e) {
             return memoryId;
         }
@@ -211,18 +216,16 @@ class ChatManager {
     // Function to switch to a selected conversation
     switchConversation(memoryId) {
         this.currentMemoryId = memoryId;
-        this.messages = this.conversationHistory[memoryId] || [];
+        this.messages = [...this.conversationHistory[memoryId] || []];
         this.renderMessages();
     }
 
     // Function to render messages from the current conversation
     renderMessages() {
         this.chatHistory.innerHTML = '';
-        if (this.messages.length === 0 && this.currentMemoryId && this.conversationHistory[this.currentMemoryId]) {
-            this.messages = this.conversationHistory[this.currentMemoryId];
-        }
+        
         this.messages.forEach(msg => {
-            this.appendMessage(msg.sender, msg.message);
+            this.renderMessage(msg.sender, msg.message);
         });
     }
 
