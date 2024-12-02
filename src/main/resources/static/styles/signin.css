@@ -21,7 +21,7 @@
     background-color: #000307;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
