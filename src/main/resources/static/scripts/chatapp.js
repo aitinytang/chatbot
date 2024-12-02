@@ -15,7 +15,7 @@ class App {
         // Modified initialization approach
         document.addEventListener('DOMContentLoaded', () => {
             // Essential initialization for basic chat functionality
-            //this.chatManager.loadConversationHistory();
+            this.chatManager.loadConversationHistory();
             this.chatManager.initializeSidebar();
 
             // Defer conversation loading
