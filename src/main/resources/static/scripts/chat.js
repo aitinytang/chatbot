@@ -96,14 +96,15 @@ class ChatManager {
 
     storeMessage(sender, message) {
          // Store the message
-         this.messages.push({ sender, message });
+         const timestamp = new Date().toISOString();
+         this.messages.push({ sender, message, timestamp });
 
          // Save message to the current conversation's history
          if (this.currentMemoryId) {
              if (!this.conversationHistory[this.currentMemoryId]) {
                  this.conversationHistory[this.currentMemoryId] = [];
              }
-             this.conversationHistory[this.currentMemoryId].push({ sender, message });
+             this.conversationHistory[this.currentMemoryId].push({ sender, message, timestamp });
              this.saveConversation();
          }
     }
@@ -194,7 +195,7 @@ class ChatManager {
 
         for (const memoryId in this.conversationHistory) {
             const li = document.createElement('li');
-            li.textContent = this.formatMemoryId(memoryId);
+            li.textContent = this.getConversationPreview(memoryId);
             li.dataset.memoryId = memoryId;
             li.addEventListener('click', () => {
                 this.switchConversation(memoryId);
@@ -204,13 +205,28 @@ class ChatManager {
     }
 
     // Helper function to format memoryId for display (e.g., show date and last 4 chars)
-    formatMemoryId(memoryId) {
-        try {
-            const date = new Date();
-            return `${date.toLocaleDateString()}-${memoryId.substring(memoryId.length - 9)}`;
-        } catch (e) {
-            return memoryId;
+    getConversationPreview(memoryId) {
+        const conversation = this.conversationHistory[memoryId];
+        if (!conversation || conversation.length === 0) {
+            return 'New chat';
         }
+
+        // Find first user message, or use first message if no user message exists
+        const firstMessage = conversation.find(msg => msg.sender === 'user') || conversation[0];
+        const preview = firstMessage.message.trim();
+
+        // Truncate to 30 characters and add ellipsis if needed
+        const truncateMsg = preview.length > 30 ? preview.substring(0, 30) + '...' : preview;
+
+        const timestamp = new Date(firstMessage.timestamp);
+        const optionsDate = { month: '2-digit', day: '2-digit' };
+        const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+
+        const formattedDate = timestamp.toLocaleDateString('en-US', optionsDate);
+        const formattedTime = timestamp.toLocaleTimeString('en-US', optionsTime);
+
+        const formattedDateTime = `${formattedDate} ${formattedTime}`;
+        return `${formattedDateTime} - ${truncateMsg}`;
     }
 
     // Function to switch to a selected conversation
