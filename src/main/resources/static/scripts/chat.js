@@ -45,7 +45,7 @@ class ChatManager {
 
     // Function to save conversation history to localStorage
     saveConversation() {
-        //localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
+        localStorage.setItem('conversationHistory', JSON.stringify(this.conversationHistory));
     }
 
     // Function to load conversation history from localStorage
