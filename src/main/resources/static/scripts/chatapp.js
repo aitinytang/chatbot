@@ -22,9 +22,8 @@ class App {
             setTimeout(() => {
                 const savedConversations = Object.keys(this.chatManager.conversationHistory);
                 if (savedConversations.length > 0) {
-                    console.log('savedConversations.length > 0');
-                    currentMemoryId = savedConversations[0];
-                    messages = this.chatManager.conversationHistory[this.chatManager.currentMemoryId];
+                    this.chatManager.currentMemoryId = savedConversations[savedConversations.length - 1];
+                    this.chatManager.messages = this.chatManager.conversationHistory[this.chatManager.currentMemoryId];
                     this.chatManager.renderMessages();
                 } else {
                     console.log('init createNewConversation');
