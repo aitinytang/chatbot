@@ -186,7 +186,7 @@
 .input-area {
     display: flex;
     position: relative;
-    bottom: 90px;
+    bottom: 30px;
     margin: 0 auto;
     padding: 10px 20px;
     width: fit-content;
