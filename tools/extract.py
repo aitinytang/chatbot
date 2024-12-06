@@ -13,20 +13,26 @@ from langchain_core.utils.function_calling import tool_example_to_messages
 with open("campaign-referral.html", "r", encoding="utf-8") as f:
     document_content = f.read()
 
-with open("prompt.md", "r", encoding="utf-8") as f:
+with open("prompt_template/prompt.md", "r", encoding="utf-8") as f:
     prompt_content = f.read()
 
-with open("example1_input.html", "r", encoding="utf-8") as f:
+with open("prompt_template/example1_input.html", "r", encoding="utf-8") as f:
     example1_input = f.read()
 
-with open("example1_output.md", "r", encoding="utf-8") as f:
+with open("prompt_template/example1_output.md", "r", encoding="utf-8") as f:
     example1_output = f.read()
 
-with open("example2_input.html", "r", encoding="utf-8") as f:
+with open("prompt_template/example2_input.html", "r", encoding="utf-8") as f:
     example2_input = f.read()
 
-with open("example2_output.md", "r", encoding="utf-8") as f:
+with open("prompt_template/example2_output.md", "r", encoding="utf-8") as f:
     example2_output = f.read()
+
+with open("prompt_template/example3_input.html", "r", encoding="utf-8") as f:
+    example3_input = f.read()
+
+with open("prompt_template/example3_output.md", "r", encoding="utf-8") as f:
+    example3_output = f.read()
 
 llm = AzureChatOpenAI(
     api_key=os.environ["AZURE_OPENAI_KEY"],
@@ -60,6 +66,9 @@ examples = [
     ),
     (   example2_input,
         ExtractedContent(content=example2_output)
+    ),
+    (   example3_input,
+        ExtractedContent(content=example3_output)
     )
     ]
 
@@ -69,6 +78,7 @@ for txt, tool_call in examples:
     messages.extend(tool_example_to_messages(txt, [tool_call]))
 
 text = document_content
+
 prompt = prompt_template.invoke({"text": text, "examples": messages})
 
 with open('extracted.md', 'w') as file:
