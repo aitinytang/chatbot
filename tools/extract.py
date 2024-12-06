@@ -8,12 +8,25 @@ from pydantic import BaseModel, Field
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage
 from langchain_openai import AzureChatOpenAI
+from langchain_core.utils.function_calling import tool_example_to_messages
 
 with open("campaign-referral.html", "r", encoding="utf-8") as f:
     document_content = f.read()
 
-class CountHtml(BaseModel):
-    src: list[str] = Field(default_factory=list, description="List of src attributes from img tags.")
+with open("prompt.md", "r", encoding="utf-8") as f:
+    prompt_content = f.read()
+
+with open("example1_input.html", "r", encoding="utf-8") as f:
+    example1_input = f.read()
+
+with open("example1_output.md", "r", encoding="utf-8") as f:
+    example1_output = f.read()
+
+with open("example2_input.html", "r", encoding="utf-8") as f:
+    example2_input = f.read()
+
+with open("example2_output.md", "r", encoding="utf-8") as f:
+    example2_output = f.read()
 
 llm = AzureChatOpenAI(
     api_key=os.environ["AZURE_OPENAI_KEY"],
@@ -26,21 +39,37 @@ prompt_template = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You are an expert extract algorithm. "
-            "Given HTML content, "
-            "extract all src attributes from img tags and return them as a list."
+            prompt_content.split("{examples}")[0]  # First part of system message
         ),
-        # Please see the how-to about improving performance with
-        # reference examples.
         MessagesPlaceholder('examples'),
+        (
+            "system",
+            prompt_content.split("{examples}")[1]  # Second part of system message
+        ),
         ("human", "{text}"),
     ]
 )
 
-structured_llm = llm.with_structured_output(schema=CountHtml)
+class ExtractedContent(BaseModel):
+    content: str = Field(description="Markdown content extracted from the HTML document.")
+
+examples = [
+    (
+        example1_input,
+        ExtractedContent(content=example1_output)
+    ),
+    (   example2_input,
+        ExtractedContent(content=example2_output)
+    )
+    ]
+
+messages = []
+
+for txt, tool_call in examples:
+    messages.extend(tool_example_to_messages(txt, [tool_call]))
 
 text = document_content
+prompt = prompt_template.invoke({"text": text, "examples": messages})
 
-prompt = prompt_template.invoke({"text": text, "examples": [HumanMessage(content='<img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-4-p.png" alt="STEP 4" width="72">, output:/assets/img/campaign/referral/step-4-p.png')]})
-
-print(structured_llm.invoke(prompt))
+with open('extracted.md', 'w') as file:
+    file.write(llm.invoke(prompt).content)
