@@ -1,0 +1,64 @@
+AND you should be careful with the following:
+- 1. li elements have relationship with tabpanel, tabpanel1 should be sub-content of tab-menu1, tabpanel2 should be sub-content of tab-menu2, etc.
+- 2. <img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-1-p.png" alt="STEP 1" width="72"> should be extract src attribute but add . to the path so that markdown can recognize it.
+    
+    <div class="c-Tab js-Tab u-Adjust_Mt-24">
+      <div class="l-System_Container">
+        <ul class="c-Tab_Items" role="tablist">
+          <li class="c-Tab_Item" id="tab-menu1" role="tab" aria-selected="true" aria-controls="tab-content1" data-ratid="campaign_referral_tab-line" data-ratevent="click" data-ratparam="all">LINE・<br class="referral-Utility_Show-sp">SNS等</li>
+          <li class="c-Tab_Item" id="tab-menu2" role="tab" aria-selected="false" aria-controls="tab-content2" data-ratid="campaign_referral_tab-mail" data-ratevent="click" data-ratparam="all">メール</li>
+        </ul>
+      </div>
+      <div class="l-System_Container u-Adjust_Mt-24  referral-Utility_Sp-padding-none">
+        <div class="referral-Layout_Easy-tab">
+          <div class="c-Tab_Panel" id="tab-content1" role="tabpanel" aria-hidden="false" aria-labelledby="tab-menu1">
+            <div class="referral-Layout_Easy-tab-content-title u-Adjust_Pt-40">
+              <img src="/assets/img/campaign/referral/easy-1-pc.png" alt="紹介する方" width="328">
+            </div>
+            <div class="referral-Layout_Easy-tab-content referral-Layout_Easy-tab-content-01 u-Adjust_Mt-16">
+              <div class="referral-Layout_Easy-tab-content-item u-Adjust_Align-center">
+                <img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-1-p.png" alt="STEP 1" width="72">
+                <div class="referral-Utility_Show-pc">
+                  <p class="c-Txt_Emp-01 u-Adjust_Mt-8">QRコードを読み取る</p>
+                </div>
+              </div>
+              <div class="referral-Layout_Easy-tab-content-item u-Adjust_Align-center">
+                <img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-2-p.png" alt="STEP 2" width="72">
+                <p class="c-Txt_Emp-01 u-Adjust_Mt-8">楽天会員にログイン</p>
+              </div>
+              <div class="referral-Layout_Easy-tab-content-item u-Adjust_Align-center">
+                <img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-3-p.png" alt="STEP 3" width="72">
+                <p class="c-Txt_Emp-01 u-Adjust_Mt-8">アプリへ遷移</p>
+              </div>
+              <div class="referral-Layout_Easy-tab-content-item u-Adjust_Align-center">
+                <img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-4-p.png" alt="STEP 4" width="72">
+                <p class="c-Txt_Emp-01 u-Adjust_Mt-8"><span class="c-Txt_Normal-s">送信先を選択して</span><br>メッセージ送信！</p>
+              </div>
+            </div>
+          </div>
+          <div class="c-Tab_Panel" id="tab-content2" role="tabpanel" aria-hidden="false" aria-labelledby="tab-menu2">
+            <div class="referral-Layout_Easy-tab-content-title u-Adjust_Pt-40">
+              <img src="/assets/img/campaign/referral/easy-1-pc.png" alt="紹介する方" width="328">
+            </div>
+            <div class="referral-Layout_Easy-tab-content referral-Layout_Easy-tab-content-02 u-Adjust_Mt-16">
+              <div class="referral-Layout_Easy-tab-content-item referral-Layout_Easy-tab-content-item-mod-01 u-Adjust_Align-center">
+                <img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-1-p.png" alt="STEP 1" width="72">
+                <p class="c-Txt_Emp-01 u-Adjust_Mt-8">「メールで紹介する」<br>をタップ</p>
+              </div>
+              <div class="referral-Layout_Easy-tab-content-item referral-Layout_Easy-tab-content-item-mod-01 u-Adjust_Align-center">
+                <img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-2-p.png" alt="STEP 2" width="72">
+                <p class="c-Txt_Emp-01 u-Adjust_Mt-8">楽天会員にログイン</p>
+              </div>
+              <div class="referral-Layout_Easy-tab-content-item referral-Layout_Easy-tab-content-item-mod-01 u-Adjust_Align-center">
+                <img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-3-p.png" alt="STEP 3" width="72">
+                <p class="c-Txt_Emp-01 u-Adjust_Mt-8"><span class="c-Txt_Normal-s">必要事項を入力して</span><br>メール送信！</p>
+              </div>
+              <div class="referral-Layout_Easy-tab-content-item referral-Layout_Easy-tab-content-item-mod-01 u-Adjust_Align-center">
+                <img class="u-Adjust_Mt-24" src="/assets/img/campaign/referral/step-4-p.png" alt="STEP 4" width="72">
+                <p class="c-Txt_Emp-01 u-Adjust_Mt-8">お相手にメール到着</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
