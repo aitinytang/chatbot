@@ -11,6 +11,8 @@ export PATH=$PATH:$JAVA_HOME/bin
 export MAVEN_HOME=/path/to/your/apache-maven-3.9.9
 export PATH=$PATH:$MAVEN_HOME/bin
 ```
+## python lib
+pip install -qU langchain-openai
 
 # Setup chatbot
 ## step 1
