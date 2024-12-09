@@ -5,7 +5,7 @@ with open('campaign-referral.html', 'r', encoding='utf-8') as file:
     html_content = file.read()
 
 # Select the tokenizer for your model
-encoder = tiktoken.encoding_for_model('gpt-3.5-turbo')
+encoder = tiktoken.encoding_for_model('gpt-4o')
 
 # Encode the content into tokens
 tokens = encoder.encode(html_content)
